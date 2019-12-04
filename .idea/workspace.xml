@@ -51,6 +51,63 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Application.Principal">
+    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Principal" />
+      <module name="AMI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest.nodos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="METHOD_NAME" value="nodos" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest.nodosVecinosException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="METHOD_NAME" value="nodosVecinosException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest.tamañoGrafoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="METHOD_NAME" value="tamañoGrafoTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.GrafoNDTest.nodos" />
+        <item itemvalue="JUnit.GrafoNDTest.nodosVecinosException" />
+        <item itemvalue="JUnit.GrafoNDTest.tamañoGrafoTest" />
+        <item itemvalue="JUnit.GrafoNDTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>

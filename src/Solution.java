@@ -9,7 +9,7 @@ public class Solution {
     public Solution(){
         this.probabilidadSolucion=(float)Math.random()*1;
     }
-    public HashSet<Nodo<Integer>> procedimientoCascada(Grafo grafo, HashSet<Nodo<Integer>> conjuntoNodoSemilla){
+    /*public HashSet<Nodo<Integer>> procedimientoCascada(Grafo grafo, HashSet<Nodo<Integer>> conjuntoNodoSemilla){
         boolean terminado=false;
         HashSet<Nodo<Integer>> conjuntoNodosActivos=new HashSet<>();
         conjuntoNodosActivos.addAll(conjuntoNodoSemilla);
@@ -20,16 +20,13 @@ public class Solution {
             HashSet<Nodo<Integer>> conjuntoNodosFuturosInfec=new HashSet<>();
             for(Nodo<Integer> nodo: conjuntoNodosActivosUltimos){
                 System.out.println("dentro for solution");
-                /*for(Arco<Float,Integer> arcoSacado: grafo.arcosIncidentes(nodo)){
+                for(Arco<Float,Integer> arcoSacado: grafo.arcosIncidentes(nodo)){
                     Nodo<Integer> nodoPosInfect=grafo.nodoOpuesto(nodo,arcoSacado);
                     if((!conjuntoNodosActivos.contains(nodoPosInfect))&&(arcoSacado.getPesoArco()>this.probabilidadSolucion)){
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
 
                 }
-
-                 */
-
                 System.out.println("numeroNodos: "+grafo.arcosIncidentes(nodo).size());
                 Iterator<Arco<Float,Integer>> it=grafo.arcosIncidentes(nodo).iterator();
                 System.out.println("it.hasNext(): "+it.hasNext());
@@ -47,6 +44,7 @@ public class Solution {
         }
         return conjuntoNodosActivos;
     }
+    */
     public Float getProbabilidadSolucion(){
         return this.probabilidadSolucion;
     }

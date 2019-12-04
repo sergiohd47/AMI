@@ -11,12 +11,11 @@ public class Principal {
     public static void main(String args[]){
         Instance instance=new Instance();
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO);
-        Grafo<Integer, Float> grafoND=new GrafoND<>();
-        grafoND=instance.construirGrafo(listaNodos);
+        Grafo grafoND=instance.construirGrafo(listaNodos);
         Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
-        //HashSet<Nodo<Integer>> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
-        Solution solucion=new Solution();
-        float probSolucion=solucion.getProbabilidadSolucion();
+        HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
+        //Solution solucion=new Solution();
+        //float probSolucion=solucion.getProbabilidadSolucion();
         //HashSet<Nodo<Integer>> conjuntoInfectados=solucion.procedimientoCascada(grafoND,conjuntoNodosSemilla);
 
 
