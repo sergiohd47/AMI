@@ -1,125 +1,54 @@
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 //GRAFO NO DIRIGIDO
-public class GrafoND<V,E> implements Grafo<V,E>{
-    //private HashSet<Nodo<V>> conjuntoNodos;
-    //private HashSet<Arco<E,V>> conjuntoArcos;
-    private HashMap<V,Nodo<V>> tablaNodos;
-    private HashMap<Pair<V,V>,Arco<E,V>> tablaArcos;
+public class GrafoND implements Grafo{
+    //Esta implementacion de grafos se basa en una lista de adyacencia y en una matriz de adyacencia.
+    private ArrayList<Integer>[] listaAdyacencia;
+    private boolean[][] matrizAdyacencia;
 
     public GrafoND(){
-        this.tablaNodos=new HashMap<>();
-        this.tablaArcos=new HashMap<>();
-    }
-    @Override
-    public Collection<Nodo<V>> nodos() {
-        //return this.conjuntoNodos;
-        HashSet<Nodo<V>> conjSolucion=new HashSet<>();
-        for(V nodoInfo:this.tablaNodos.keySet()){
-            conjSolucion.add(this.tablaNodos.get(nodoInfo));
+        this.listaAdyacencia= (ArrayList<Integer>[])new Object();
+        for(int i=0;i<this.listaAdyacencia.length;i++){ //EL CERO ESTARA SIEMPRE A NULL PARA DIFERENCIARLO DE LOS DEMAS NODOS (NO HAY NODO 0)
+            this.listaAdyacencia[i]=null;
         }
-        return conjSolucion;
-    }
-
-    @Override
-    public Collection<Arco<E, V>> arcos() {
-        //return this.conjuntoArcos;
-        HashSet<Arco<E,V>> conjSolucion=new HashSet<>();
-        for(Pair<V,V> parNOND :this.tablaArcos.keySet()){
-            conjSolucion.add(this.tablaArcos.get(parNOND));
+        this.matrizAdyacencia= (boolean[][]) new Object();
+        for(int i=0;i<this.listaAdyacencia.length;i++){
+            this.matrizAdyacencia[0][i]= false;
+            this.matrizAdyacencia[i][0]= false;
         }
-        return conjSolucion;
     }
-
     @Override
-    public Collection<Arco<E,V>> arcosIncidentes(Nodo<V> nodo) {
-        HashSet<Arco<E,V>> conjuntoSolucion=new HashSet<>();
-        for(Arco<E,V> arco: this.arcos()){
-            if((arco.getNodoDestino()==nodo)||(arco.getNodoOrigen()==nodo)){
-                conjuntoSolucion.add(arco);
+    public Collection<Integer> nodos() {
+        HashSet<Integer> conjuntoSolucion=new HashSet<>();
+        for(int i=0;i<this.listaAdyacencia.length;i++){
+            if(this.listaAdyacencia[i]!=null) {
+                conjuntoSolucion.addAll(this.listaAdyacencia[i]);
             }
         }
         return conjuntoSolucion;
     }
 
     @Override
-    public Nodo<V> nodoOpuesto(Nodo<V> nodo, Arco<E,V> arco) {
-        if(arco.getNodoOrigen()==nodo){
-            return arco.getNodoDestino();
-        }else{
-            return arco.getNodoOrigen();
-        }
+    public Boolean sonAdyacentes(int nodo1, int nodo2) {
+        return this.matrizAdyacencia[nodo1][nodo2]&&this.matrizAdyacencia[nodo2][nodo1];
+    }
+
+
+    @Override
+    public void insertarArco(int nodoOrigen, int nodoDestino) {
+        this.listaAdyacencia[nodoOrigen].add(nodoDestino);
+        this.listaAdyacencia[nodoDestino].add(nodoOrigen);
+        this.matrizAdyacencia[nodoOrigen][nodoDestino]=true;
+        this.matrizAdyacencia[nodoDestino][nodoOrigen]=true;
     }
 
     @Override
-    public Collection<Nodo<V>> nodosFinales(Arco<E,V> arco) {
-        ArrayList<Nodo<V>> listaNodos=new ArrayList<>();
-        listaNodos.add(arco.getNodoOrigen());
-        listaNodos.add(arco.getNodoDestino());
-        return listaNodos;
-    }
-
-    @Override
-    public Boolean sonAdyacentes(Nodo<V> nodo1, Nodo<V> nodo2) {
-        for(Arco<E,V> arco: this.arcos()){
-            if((arco.getNodoOrigen()==nodo1)&&(arco.getNodoDestino()==nodo2)||(arco.getNodoOrigen()==nodo2)&&(arco.getNodoDestino()==nodo1)){
-                return true;
-            }
+    public Collection<Integer> nodosVecinos(int nodo) throws RuntimeException{
+        if(this.listaAdyacencia[nodo]==null){
+            throw new RuntimeException("Nodo no existe");
         }
-        return false;
+        return this.listaAdyacencia[nodo];
     }
-
-    @Override
-    public Nodo<V> insertarNodo(V nodoInfo) {
-        /*Nodo<V> nuevoNodo=new Nodo<>(nodoInfo);
-        this.conjuntoNodos.add(nuevoNodo);
-        return nuevoNodo;
-         */
-        Nodo<V> nuevoNodo=this.tablaNodos.get(nodoInfo);
-        if(nuevoNodo==null){
-            nuevoNodo=new Nodo<>(nodoInfo);
-            this.tablaNodos.put(nodoInfo,nuevoNodo);
-        }
-        return nuevoNodo;
-    }
-
-    @Override
-    public Arco<E, V> insertarArco(Nodo<V> nodoOrigen, Nodo<V> nodoDestino, E pesoArco) {
-        /*Arco<E,V> nuevoArco=new Arco<>(pesoArco,nodoOrigen, nodoDestino);
-        this.conjuntoArcos.add(nuevoArco);
-        return nuevoArco;
-         */
-        Arco<E,V> nuevoArco=this.tablaArcos.get(new Pair<>(nodoOrigen.getNodoInfo(),nodoDestino.getNodoInfo()));
-        if(nuevoArco==null){
-            nuevoArco=new Arco<>(pesoArco,nodoOrigen,nodoDestino);
-            Pair<V,V> parComprobacionInv=new Pair<>(nodoDestino.getNodoInfo(),nodoOrigen.getNodoInfo());
-            Arco<E,V> arcoAux=this.tablaArcos.get(parComprobacionInv);
-            if(arcoAux!=null){
-                this.tablaArcos.remove(parComprobacionInv);
-            }
-            this.tablaArcos.put(new Pair<>(nodoOrigen.getNodoInfo(),nodoDestino.getNodoInfo()),nuevoArco);
-        }
-        return nuevoArco;
-    }
-    @Override
-    public Collection<Nodo<V>> nodosVecinos(Nodo<V> nodo){
-        HashSet<Nodo<V>> conjuntoNodos=new HashSet<>();
-        for(Arco<E,V> arco: this.arcosIncidentes(nodo)){
-            conjuntoNodos.add(this.nodoOpuesto(nodo,arco));
-        }
-        return conjuntoNodos;
-     }
-     @Override
-     public Nodo<V> dameNodo(V nodoInfo){
-        return this.tablaNodos.get(nodoInfo);
-     }
-     @Override
-     public Arco<E,V> dameArco(V nodoO, V nodoD){
-        return this.tablaArcos.get(new Pair<>(nodoO,nodoD));
-     }
 }

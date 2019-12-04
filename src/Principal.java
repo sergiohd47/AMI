@@ -14,43 +14,11 @@ public class Principal {
         Grafo<Integer, Float> grafoND=new GrafoND<>();
         grafoND=instance.construirGrafo(listaNodos);
         Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
-        HashSet<Nodo<Integer>> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
+        //HashSet<Nodo<Integer>> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
         Solution solucion=new Solution();
         float probSolucion=solucion.getProbabilidadSolucion();
-        HashSet<Nodo<Integer>> conjuntoInfectados=solucion.procedimientoCascada(grafoND,conjuntoNodosSemilla);
-        /*System.out.println("-------------------");
-        System.out.println("Numero nodos: "+grafoND.nodos().size());
-        System.out.println("-------------------");
-        System.out.println("Numero arcos: "+grafoND.arcos().size());
-        System.out.println("-------------------");
-        System.out.println("CONJUNTO SEMILLA");
-        for(Nodo<Integer> nodo: conjuntoNodosSemilla){
-            System.out.println(nodo);
-        }
-        System.out.println("-------------------");
-        System.out.println("NODOS GRAFO");
-        for(Nodo<Integer> nodo: grafoND.nodos()){
-            System.out.println(nodo);
-        }
-         */
-        System.out.println("-------------------");
-        System.out.println("ARCOS GRAFO");
-        for(Arco<Float,Integer> arco: grafoND.arcos()){
-            System.out.println(arco);
-        }
-        System.out.println("-------------------");
-        System.out.println("PROBABILIDAD SOLUCION");
-        System.out.println(probSolucion);
-        System.out.println("-------------------");
-        /*System.out.println("NODOS INFECTADOS");
-        System.out.println("Numero nodos: "+conjuntoInfectados.size());
-        System.out.println("-------------------");
-        for(Nodo<Integer> nodo: conjuntoInfectados){
-            System.out.println(nodo);
-        }
+        //HashSet<Nodo<Integer>> conjuntoInfectados=solucion.procedimientoCascada(grafoND,conjuntoNodosSemilla);
 
-         */
-        //PROBANDO GITHUB
 
 
 
