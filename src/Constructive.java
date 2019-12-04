@@ -5,4 +5,5 @@ import java.util.HashSet;
 public interface Constructive {
     HashSet<Integer> construirSolucion(Grafo grafo);
 
+
 }

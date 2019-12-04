@@ -9,5 +9,5 @@ public interface Grafo {
     void insertarNodo(int nodo); //inserta nodo en el grafo
     void insertarArco(int nodoOrigen, int nodoDestino); //inserta arco en el grafo, devuelve puntero al arco
     Collection<Integer> nodosVecinos(int nodo);
-    int tamañoGrafo(); //devuelve el tamaño del grafo (numero nodos)
+    int tamañoGrafo();
 }

@@ -27,7 +27,7 @@ public class GrafoND implements Grafo{
                 conjuntoSolucion.addAll(listaNodosVecinos);
             }
         }
-        return conjuntoSolucion;
+        return Collections.unmodifiableCollection(conjuntoSolucion);
     }
 
 
@@ -56,9 +56,9 @@ public class GrafoND implements Grafo{
         }
         return this.listaAdyacencia[nodo];
     }
-
     @Override
     public int tamañoGrafo(){
         return this.numeroNodos;
     }
+
 }

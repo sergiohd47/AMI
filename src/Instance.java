@@ -66,4 +66,8 @@ public class Instance {
         }
         return grafoND;
     }
+
+    public float getProbabilidadArcos() {
+        return probabilidadArcos;
+    }
 }
