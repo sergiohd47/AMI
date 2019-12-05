@@ -16,16 +16,22 @@ public class Solution {
         HashSet<Integer> conjuntoNodosActivosUltimos=new HashSet<>();
         conjuntoNodosActivosUltimos.addAll(conjuntoNodosActivos);
         while(!terminado){
+            System.out.println("Dentro bucle while");
             HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
             for(Integer nodo: conjuntoNodosActivosUltimos){
+                System.out.println("Dentro bucle for1");
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
+                    System.out.println("Dentro bucle for2");
                     if((!conjuntoNodosActivos.contains(nodoPosInfect)&&probabilidadArcos>this.probabilidadSolucion)){
+                        System.out.println("Dentro bucle if");
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
                 }
             }
+            System.out.println("Fuera bucle for1");
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
+            System.out.println("Tamaño conj: "+conjuntoNodosActivosUltimos.size());
             terminado=conjuntoNodosActivosUltimos.isEmpty();
         }
         return conjuntoNodosActivos;
