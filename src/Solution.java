@@ -19,9 +19,8 @@ public class Solution {
             HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
             for(Integer nodo: conjuntoNodosActivosUltimos){
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
-                    if((probabilidadArcos>this.probabilidadSolucion)){
+                    if((!conjuntoNodosActivos.contains(nodoPosInfect)&&probabilidadArcos>this.probabilidadSolucion)){
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
-                        System.out.println(conjuntoNodosFuturosInfec.size());
                     }
                 }
             }
