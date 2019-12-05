@@ -1,7 +1,9 @@
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 //Guarda la informacion correspondiente a la solucion. Tendra una referencia a la Instance y despues, la estructura necesaria
 // para representar la solucion al problema.
 public class Solution {

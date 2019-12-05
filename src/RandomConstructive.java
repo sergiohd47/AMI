@@ -1,5 +1,7 @@
 import java.util.*;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 // SE ESCOGEN ALEATORIAMENTE UNA SERIE DE NODOS
 public class RandomConstructive implements Constructive {
     private int numeroNodosAEscoger;

@@ -1,7 +1,9 @@
 import java.awt.geom.Arc2D;
 import java.util.Collection;
 import java.util.Collections;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 public interface Grafo {
     //Como el peso es el mismo para todos los arcos, no se hace distincion
     Collection<Integer> nodos(); //devuelve lista de nodos del grafo

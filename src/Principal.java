@@ -2,7 +2,9 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 public class Principal {
     private static final int NODOS_SEMILLA=3; // EN ESTE CASO SE ESCOGEN TRES NODOS SEMILLAS
     //Ruta del fichero pasada a fuego. Mas adelante mejorar para pasar varias rutas diferentes

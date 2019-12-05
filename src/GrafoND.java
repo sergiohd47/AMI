@@ -2,7 +2,9 @@ import javafx.util.Pair;
 
 import java.lang.reflect.Array;
 import java.util.*;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 //GRAFO NO DIRIGIDO
 public class GrafoND implements Grafo{
     //Esta implementacion de grafos se basa en una lista de adyacencia y en una matriz de adyacencia.

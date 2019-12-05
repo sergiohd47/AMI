@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-
+/**
+ * @author Sergio Hernandez Dominguez
+ */
 //Esta clase almacena en memoria la informacion de cada una de las instancias (ficheros) SNAP
 public class Instance {
     private float probabilidadArcos;
