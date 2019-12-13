@@ -7,13 +7,7 @@ import java.util.Iterator;
 //Guarda la informacion correspondiente a la solucion. Tendra una referencia a la Instance y despues, la estructura necesaria
 // para representar la solucion al problema.
 public class Solution {
-    private float probabilidadSolucion;
-    public Solution(){
-        this.probabilidadSolucion=(float)Math.random()*1;
-    }
     public HashSet<Integer> procedimientoCascada(Grafo grafo, HashSet<Integer> conjuntoNodoSemilla, float probabilidadArcos){
-        System.out.println("PA: "+probabilidadArcos);
-        System.out.println("PS: "+this.probabilidadSolucion);
         boolean terminado=false;
         HashSet<Integer> conjuntoNodosActivos=new HashSet<>();
         HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
@@ -26,7 +20,8 @@ public class Solution {
                 //System.out.println("Dentro bucle for1");
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
                     //System.out.println("Dentro bucle for2");
-                    if(((probabilidadArcos>this.probabilidadSolucion)&&!conjuntoNodosActivos.contains(nodoPosInfect))){
+                    float probabilidadSolucion=(float)Math.random()*1;
+                    if(((probabilidadArcos>probabilidadSolucion)&&!conjuntoNodosActivos.contains(nodoPosInfect))){
                         //System.out.println("Dentro bucle if");
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
@@ -37,11 +32,8 @@ public class Solution {
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
             //System.out.println("Tamaño conj: "+conjuntoNodosActivosUltimos.size());
-            terminado=conjuntoNodosActivosUltimos.size()==grafo.tamañoGrafo()||conjuntoNodosActivosUltimos.size()==conjuntoNodoSemilla.size();
+            terminado=conjuntoNodosActivosUltimos.isEmpty();
         }
         return conjuntoNodosActivos;
-    }
-    public Float getProbabilidadSolucion(){
-        return this.probabilidadSolucion;
     }
 }
