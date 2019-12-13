@@ -62,5 +62,15 @@ public class GrafoND implements Grafo{
     public int tamañoGrafo(){
         return this.numeroNodos;
     }
+    @Override
+    public String toString(){
+        String resultado="";
+        for(Integer nodo: this.nodos()){
+            for(Integer nodoVecino: this.nodosVecinos(nodo)) {
+                resultado=resultado+"Nodo: " + nodo + " ---- Nodo vecino: " + nodoVecino+"\n";
+            }
+        }
+        return resultado;
+    }
 
 }
