@@ -32,20 +32,52 @@ public class Principal {
             System.out.println("Conjunto infectados: "+conjuntoInfectados);
             System.out.println("------------------");
         }
-        int numeroConj10=0;
+
         int numeroConj3=0;
-        int numeroConjCualq=0;
+        int numeroConj4=0;
+        int numeroConj5=0;
+        int numeroConj6=0;
+        int numeroConj7=0;
+        int numeroConj8=0;
+        int numeroConj9=0;
+        int numeroConj10=0;
+
         for(Integer clave: mapaConjuntos.keySet()){
-            if(mapaConjuntos.get(clave).size()==10){
-                numeroConj10++;
-            }else if(mapaConjuntos.get(clave).size()==3){
-                numeroConj3++;
-            }else{
-                numeroConjCualq++;
+            switch (mapaConjuntos.get(clave).size()){
+                case 3:
+                    numeroConj3++;
+                    break;
+                case 4:
+                    numeroConj4++;
+                    break;
+                case 5:
+                    numeroConj5++;
+                    break;
+                case 6:
+                    numeroConj6++;
+                    break;
+                case 7:
+                    numeroConj7++;
+                    break;
+                case 8:
+                    numeroConj8++;
+                    break;
+                case 9:
+                    numeroConj9++;
+                    break;
+                default:
+                    numeroConj10++;
             }
         }
-        System.out.println("Porcentaje longitud conjunto=3: "+(float)(numeroConj3*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=10: "+(float)(numeroConj10*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto cualquiera: "+(float)(numeroConjCualq*100)/30+"%");
+
+        System.out.println("Porcentaje longitud conjunto=3: ("+numeroConj3+"/30)  "+(float)(numeroConj3*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=4: ("+numeroConj4+"/30)  "+(float)(numeroConj4*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=5: ("+numeroConj5+"/30)  "+(float)(numeroConj5*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=6: ("+numeroConj6+"/30)  "+(float)(numeroConj6*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=7: ("+numeroConj7+"/30)  "+(float)(numeroConj7*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=8: ("+numeroConj8+"/30)  "+(float)(numeroConj8*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=9: ("+numeroConj9+"/30)  "+(float)(numeroConj9*100)/30+"%");
+        System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
+
     }
 }
