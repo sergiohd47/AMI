@@ -22,10 +22,9 @@ public class Principal {
             Solution solucion = new Solution();
             HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
             System.out.println("SOLUCION "+i);
+            System.out.println("Conjunto semilla: "+conjuntoNodosSemilla);
             System.out.println("Tamaño conj: "+conjuntoInfectados.size());
-            for(Integer numero: conjuntoInfectados){
-                System.out.println(numero);
-            }
+            System.out.println("Conjunto infectados: "+conjuntoInfectados);
             System.out.println("------------------");
         }
 
