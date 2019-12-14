@@ -13,28 +13,31 @@ public class Solution {
         HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
         conjuntoNodosActivos.addAll(conjuntoNodoSemilla);
         HashSet<Integer> conjuntoNodosActivosUltimos=new HashSet<>();
+        HashSet<Integer> conjuntoNodosVisitados=new HashSet<>();
         conjuntoNodosActivosUltimos.addAll(conjuntoNodosActivos);
         while(!terminado){
             conjuntoNodosFuturosInfec.clear();
-            //System.out.println("Dentro bucle while");
             for(Integer nodo: conjuntoNodosActivosUltimos){
-                //System.out.println("Dentro bucle for1");
+                if(conjuntoNodosVisitados.contains(nodo)){
+                    continue;
+                }
+                conjuntoNodosVisitados.add(nodo);
+                System.out.println("NODO FOR1: "+nodo);
+                System.out.println("CONJUNTO NODOS VISITADOS: "+conjuntoNodosVisitados);
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
-                    //System.out.println("Dentro bucle for2");
+                    System.out.println("NODO FOR2(VECINOS): "+nodoPosInfect);
                     float probabilidadSolucion=(float)Math.random()*1;
-                    //System.out.println("PA: "+probabilidadArcos);
-                    //System.out.println("PS: "+probabilidadSolucion);
-                    if(((probabilidadArcos>probabilidadSolucion)&&!conjuntoNodosActivos.contains(nodoPosInfect))){
-                        //System.out.println("Dentro bucle if");
+                    System.out.println("PA: "+probabilidadArcos);
+                    System.out.println("PS: "+probabilidadSolucion);
+                    if((!conjuntoNodosActivos.contains(nodoPosInfect)&&(probabilidadArcos>probabilidadSolucion))){
+                        System.out.println("NODO AÑADIDO: "+nodoPosInfect);
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
                 }
+                System.out.println("------------------------");
             }
-            //System.out.println("Fuera bucle for1");
-            //System.out.println("Tamaño conj Infect: "+conjuntoNodosFuturosInfec.size());
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
-            //System.out.println("Tamaño conj: "+conjuntoNodosActivosUltimos.size());
             terminado=conjuntoNodosFuturosInfec.isEmpty();
         }
         return conjuntoNodosActivos;
