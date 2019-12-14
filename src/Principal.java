@@ -22,12 +22,7 @@ public class Principal {
         float probabilidadArcos=instance.getProbabilidadArcos();
         Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
-        System.out.println("CONJUNTO NODOS SEMILLA: "+conjuntoNodosSemilla);
-        Solution solucion = new Solution();
-        HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
-        System.out.println("CONJUNTO NODOS INFECTADOS: "+conjuntoInfectados);
-        System.out.println("LONGITUD CONJUNTO NODOS INFECTADOS: "+conjuntoInfectados.size());
-        /*for(int i=1;i<31;i++) {
+        for(int i=1;i<31;i++) {
             Solution solucion = new Solution();
             HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
             mapaConjuntos.put(i,conjuntoInfectados);
@@ -83,8 +78,6 @@ public class Principal {
         System.out.println("Porcentaje longitud conjunto=8: ("+numeroConj8+"/30)  "+(float)(numeroConj8*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=9: ("+numeroConj9+"/30)  "+(float)(numeroConj9*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
-
-         */
 
     }
 }

@@ -22,19 +22,12 @@ public class Solution {
                     continue;
                 }
                 conjuntoNodosVisitados.add(nodo);
-                System.out.println("NODO FOR1: "+nodo);
-                System.out.println("CONJUNTO NODOS VISITADOS: "+conjuntoNodosVisitados);
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
-                    System.out.println("NODO FOR2(VECINOS): "+nodoPosInfect);
                     float probabilidadSolucion=(float)Math.random()*1;
-                    System.out.println("PA: "+probabilidadArcos);
-                    System.out.println("PS: "+probabilidadSolucion);
                     if((!conjuntoNodosActivos.contains(nodoPosInfect)&&(probabilidadArcos>probabilidadSolucion))){
-                        System.out.println("NODO AÑADIDO: "+nodoPosInfect);
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
                 }
-                System.out.println("------------------------");
             }
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
