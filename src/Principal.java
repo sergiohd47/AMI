@@ -12,15 +12,17 @@ import java.util.Map;
 public class Principal {
     private static final int NODOS_SEMILLA=3; // EN ESTE CASO SE ESCOGEN TRES NODOS SEMILLAS
     //Ruta del fichero pasada a fuego. Mas adelante mejorar para pasar varias rutas diferentes
-    private static final String RUTA_FICHERO="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snapPrueba/snapGrafoPrueba.txt";
+    private static final String RUTA_FICHERO_PRUEBAS="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snapPrueba/snapGrafoPrueba.txt";
+    private static final String RUTA_FICHERO_REAL="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snap2/email-Eu-core.txt";
 
     public static void main(String args[]){
         HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO);
+        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_PRUEBAS);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
         Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
+        System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
         for(int i=1;i<31;i++) {
             Solution solucion = new Solution();

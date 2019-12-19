@@ -32,6 +32,8 @@ public class Instance {
                 if(linea.indexOf("#")==0){ //Ignoran las lineas que empiezan por "#"
                     continue;
                 }
+                //EN LA REGEX DEL FICHERO DE PRUEBA CREADO POR MI, ES NECESARIO PONER "\t".
+                //EN LA REGEX DEL FICHERO DE SNAP "snap2/email-Eu-core.txt", LA REGEX ES UN ESPACIO " ".
                 int nodoOrigen=Integer.parseInt(linea.split("\t")[0]);
                 nodos.add(nodoOrigen);
                 int nodoDestino=Integer.parseInt(linea.split("\t")[1]);
