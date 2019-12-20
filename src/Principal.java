@@ -25,10 +25,13 @@ public class Principal {
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
         long finalConstructivo=System.currentTimeMillis();
+        System.out.println("CONJUNTO NODOS SEMILLA");
         for(Integer semilla: conjuntoNodosSemilla){
             System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
         }
         long inicioSolucion=System.currentTimeMillis();
+        System.out.println("----------------------");
+        System.out.println(" ");
         for(int i=1;i<31;i++) {
             Solution solucion = new Solution();
             HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
