@@ -1,10 +1,8 @@
 import javafx.util.Pair;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * @author Sergio Hernandez Dominguez
@@ -22,10 +20,14 @@ public class Principal {
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
         long inicioConstructivo= System.currentTimeMillis();
-        Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
+        //Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
+        Constructive constructive=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
         long finalConstructivo=System.currentTimeMillis();
+        for(Integer semilla: conjuntoNodosSemilla){
+            System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
+        }
         long inicioSolucion=System.currentTimeMillis();
         for(int i=1;i<31;i++) {
             Solution solucion = new Solution();
@@ -95,6 +97,5 @@ public class Principal {
         System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
          */
         System.out.println("PROMEDIO INFECTADOS: "+promedioLongitudInfectados/30);
-
     }
 }

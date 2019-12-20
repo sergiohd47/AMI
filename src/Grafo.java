@@ -10,6 +10,7 @@ public interface Grafo {
     Boolean sonAdyacentes(int nodo1, int nodo2); //devuelve si existe un arco que conecte dos nodos pasados
     void insertarNodo(int nodo); //inserta nodo en el grafo
     void insertarArco(int nodoOrigen, int nodoDestino); //inserta arco en el grafo, devuelve puntero al arco
-    Collection<Integer> nodosVecinos(int nodo);
-    int tamañoGrafo();
+    Collection<Integer> nodosVecinos(int nodo); //devuelve collection de nodos vecinos a un nodo pasado
+    int tamañoGrafo(); //devuelve el tamaño del grafo (numero nodos)
+    int gradoNodo(int nodo); //devuelve el grado de un nodo pasado
 }

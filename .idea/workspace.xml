@@ -61,11 +61,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GrafoNDTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GrafoNDTest.gradoNodoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="AMI" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="gradoNodoTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -103,10 +104,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.GrafoNDTest.gradoNodoTest" />
         <item itemvalue="JUnit.GrafoNDTest.nodos" />
         <item itemvalue="JUnit.GrafoNDTest.nodosVecinosException" />
         <item itemvalue="JUnit.GrafoNDTest.tamañoGrafoTest" />
-        <item itemvalue="JUnit.GrafoNDTest" />
       </list>
     </recent_temporary>
   </component>

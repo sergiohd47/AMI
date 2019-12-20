@@ -58,6 +58,12 @@ class GrafoNDTest {
 
     }
     @Test
+    void gradoNodoTest(){
+        Grafo grafo=crearGrafo();
+        assertEquals(grafo.gradoNodo(3),3);
+        assertEquals(grafo.gradoNodo(2),grafo.gradoNodo(1));
+    }
+    @Test
     void nodosVecinosException() {
         Grafo grafo=crearGrafo();
         RuntimeException runtimeException=assertThrows(RuntimeException.class,()->grafo.nodosVecinos(8));
