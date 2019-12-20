@@ -21,9 +21,12 @@ public class Principal {
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_PRUEBAS);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
+        long inicioConstructivo= System.currentTimeMillis();
         Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
+        long finalConstructivo=System.currentTimeMillis();
+        long inicioSolucion=System.currentTimeMillis();
         for(int i=1;i<31;i++) {
             Solution solucion = new Solution();
             HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
@@ -34,7 +37,8 @@ public class Principal {
             System.out.println("Conjunto infectados: "+conjuntoInfectados);
             System.out.println("------------------");
         }
-
+        long finalSolucion=System.currentTimeMillis();
+        /*
         int numeroConj3=0;
         int numeroConj4=0;
         int numeroConj5=0;
@@ -43,8 +47,12 @@ public class Principal {
         int numeroConj8=0;
         int numeroConj9=0;
         int numeroConj10=0;
+         */
 
+        int promedioLongitudInfectados=0;
         for(Integer clave: mapaConjuntos.keySet()){
+            promedioLongitudInfectados=promedioLongitudInfectados+mapaConjuntos.get(clave).size();
+            /*
             switch (mapaConjuntos.get(clave).size()){
                 case 3:
                     numeroConj3++;
@@ -70,8 +78,13 @@ public class Principal {
                 default:
                     numeroConj10++;
             }
+             */
         }
-
+        double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
+        System.out.println("TIEMPO CONSTRUCTIVO: "+tiempoConstructivo);
+        double tiempoSolucion=(double)finalSolucion-inicioSolucion;
+        System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
+        /*
         System.out.println("Porcentaje longitud conjunto=3: ("+numeroConj3+"/30)  "+(float)(numeroConj3*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=4: ("+numeroConj4+"/30)  "+(float)(numeroConj4*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=5: ("+numeroConj5+"/30)  "+(float)(numeroConj5*100)/30+"%");
@@ -80,6 +93,8 @@ public class Principal {
         System.out.println("Porcentaje longitud conjunto=8: ("+numeroConj8+"/30)  "+(float)(numeroConj8*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=9: ("+numeroConj9+"/30)  "+(float)(numeroConj9*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
+         */
+        System.out.println("PROMEDIO INFECTADOS: "+promedioLongitudInfectados/30);
 
     }
 }

@@ -34,9 +34,10 @@ public class Instance {
                 }
                 //EN LA REGEX DEL FICHERO DE PRUEBA CREADO POR MI, ES NECESARIO PONER "\t".
                 //EN LA REGEX DEL FICHERO DE SNAP "snap2/email-Eu-core.txt", LA REGEX ES UN ESPACIO " ".
-                int nodoOrigen=Integer.parseInt(linea.split("\t")[0]);
+                //REGEX: "\\s+" numero de espacios que sean
+                int nodoOrigen=Integer.parseInt(linea.split("\\s+")[0]);
                 nodos.add(nodoOrigen);
-                int nodoDestino=Integer.parseInt(linea.split("\t")[1]);
+                int nodoDestino=Integer.parseInt(linea.split("\\s+")[1]);
                 nodos.add(nodoDestino);
                 listaNodos.add(new Pair<>(nodoOrigen,nodoDestino)); //lista de pares de nodoOrigen y nodoDestino de cada arco.
             }
