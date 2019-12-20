@@ -1,6 +1,3 @@
-import javafx.util.Pair;
-
-import java.lang.reflect.Array;
 import java.util.*;
 /**
  * @author Sergio Hernandez Dominguez
@@ -52,7 +49,7 @@ public class GrafoND implements Grafo{
     }
 
     @Override
-    public Collection<Integer> nodosVecinos(int nodo) throws RuntimeException{
+    public HashSet<Integer> nodosVecinos(int nodo) throws RuntimeException{
         if(nodo>this.listaAdyacencia.length){
             throw new RuntimeException("Nodo no existe");
         }
