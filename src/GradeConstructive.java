@@ -18,18 +18,22 @@ public class GradeConstructive implements Constructive {
             throw new RuntimeException("Grafo con longitud menor que numero de semillas.");
         }
         HashSet<Integer> conjuntoSolucion=new HashSet<>();
-        HashSet<Integer> conjuntoNodosVisitSecund=new HashSet<>();
+        //HashSet<Integer> conjuntoNodosVisitSecund=new HashSet<>();
         ArrayList<Pair<Integer,Integer>> listaNodoGrado=new ArrayList<>();
         for(Integer nodo: grafo.nodos()){
             listaNodoGrado.add(new Pair<>(nodo,grafo.gradoNodo(nodo)));
         }
-        Collections.sort(listaNodoGrado,this.comparadorGrado); //SE ORDENA EN FUNCION DEL GRADO, ORDEN: DE MAYOR A MENOR
+        Collections.sort(listaNodoGrado,this.comparadorGrado); //SE ORDENA EN FUNCION DEL GRADO, ORDEN: DE MENOR A MAYOR
+        Collections.reverse(listaNodoGrado);
         for(int i=0;i<this.numeroNodosEscoger;i++){
+            /*PARTE CODIGO EVITAR SEMILLAS SEAN VECINOS ENTRE SI
             Integer nodoSelecc=listaNodoGrado.get(i).getKey();
             if(!conjuntoNodosVisitSecund.contains(nodoSelecc)){ //IF PARA NO COGER NODOS SEMILLAS QUE SEAN VECINOS ENTRE SI
                 conjuntoSolucion.add(nodoSelecc);
                 conjuntoNodosVisitSecund.addAll(grafo.nodosVecinos(nodoSelecc));
             }
+            */
+            conjuntoSolucion.add(listaNodoGrado.get(i).getKey());
         }
         return conjuntoSolucion;
     }
