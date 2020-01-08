@@ -22,8 +22,7 @@ public class GradeConstructive implements Constructive {
         for(Integer nodo: grafo.nodos()){
             listaNodoGrado.add(new Pair<>(nodo,grafo.gradoNodo(nodo)));
         }
-        Collections.sort(listaNodoGrado,this.comparadorGrado); //SE ORDENA EN FUNCION DEL GRADO, ORDEN: DE MENOR A MAYOR
-        Collections.reverse(listaNodoGrado);
+        Collections.sort(listaNodoGrado,this.comparadorGrado); //SE ORDENA EN FUNCION DEL GRADO, ORDEN: DE MAYOR A MENOR
         for(int i=0;i<this.numeroNodosEscoger;i++){
             conjuntoSolucion.add(listaNodoGrado.get(i).getKey());
         }

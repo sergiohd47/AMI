@@ -10,6 +10,6 @@ public class ComparadorGrado implements Comparator {
     public int compare(Object o1, Object o2) {
         Pair<Integer,Integer> par1=(Pair<Integer,Integer>)o1;
         Pair<Integer,Integer> par2=(Pair<Integer,Integer>)o2;
-        return par1.getValue()-par2.getValue();
+        return par2.getValue()-par1.getValue();
     }
 }
