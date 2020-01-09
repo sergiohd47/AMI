@@ -13,6 +13,7 @@ public class NormalClosenessConstructive implements Constructive {
     public NormalClosenessConstructive(int numeroNodosEscoger, ArrayList<Pair<Integer,Float>> listaCloseness){
         this.numeroNodosEscoger=numeroNodosEscoger;
         this.listaClosenessCompleta=listaCloseness;
+        this.listaClosenessSemilla=new ArrayList<>();
     }
     @Override
     public HashSet<Integer> construirSolucion(Grafo grafo) {
