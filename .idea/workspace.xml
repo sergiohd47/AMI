@@ -57,7 +57,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GrafoNDTest.distanciaANodosTest">
+  <component name="RunManager" selected="Application.Principal">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="AMI" />
@@ -107,9 +107,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.GrafoNDTest.distanciaANodosTest" />
         <item itemvalue="JUnit.GrafoNDTest.distanciaEntreNodosTest" />
-        <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.GrafoNDTest.gradoNodoTest" />
         <item itemvalue="JUnit.GrafoNDTest.nodos" />
       </list>

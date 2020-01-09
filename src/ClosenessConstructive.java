@@ -10,9 +10,11 @@ import java.util.HashSet;
 public class ClosenessConstructive implements Constructive {
     private int numeroNodosEscoger;
     private ComparadorCloseness comparadorCentralidad;
+    private ArrayList<Pair<Integer,Float>> listaCloseness;
     public ClosenessConstructive(int numeroNodosEscoger){
         this.numeroNodosEscoger=numeroNodosEscoger;
         this.comparadorCentralidad=new ComparadorCloseness();
+        this.listaCloseness=new ArrayList<>();
     }
     @Override
     public HashSet<Integer> construirSolucion(Grafo grafo) {
@@ -28,6 +30,7 @@ public class ClosenessConstructive implements Constructive {
         Collections.reverse(listaNodosCC);
         for(int i=0;i<this.numeroNodosEscoger;i++){
             conjuntoSolucion.add(listaNodosCC.get(i).getKey());
+            this.listaCloseness.add(listaNodosCC.get(i));
         }
         return conjuntoSolucion;
     }
@@ -52,5 +55,9 @@ public class ClosenessConstructive implements Constructive {
             valorDistancia=valorDistancia+distanciaNodo;
         }
         return (float)1/valorDistancia;
+    }
+
+    public ArrayList<Pair<Integer, Float>> getListaCloseness() {
+        return listaCloseness;
     }
 }

@@ -25,10 +25,16 @@ public class Principal {
         Constructive constructive=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
+        ArrayList<Pair<Integer,Float>> listaCloseness= ((ClosenessConstructive) constructive).getListaCloseness();
         long finalConstructivo=System.currentTimeMillis();
         System.out.println("CONJUNTO NODOS SEMILLA");
-        for(Integer semilla: conjuntoNodosSemilla){
+        /*for(Integer semilla: conjuntoNodosSemilla){
             System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
+        }
+         */
+
+        for(Pair<Integer, Float> par: listaCloseness){
+            System.out.println("Nodo: "+par.getKey()+" con valor de centralidad: "+par.getValue());
         }
         long inicioSolucion=System.currentTimeMillis();
         System.out.println("----------------------");
