@@ -21,7 +21,8 @@ public class Principal {
         float probabilidadArcos=instance.getProbabilidadArcos();
         long inicioConstructivo= System.currentTimeMillis();
         //Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
-        Constructive constructive=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
+        //Constructive constructive=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
+        Constructive constructive=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
         long finalConstructivo=System.currentTimeMillis();

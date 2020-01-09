@@ -13,4 +13,6 @@ public interface Grafo {
     HashSet<Integer> nodosVecinos(int nodo); //devuelve collection de nodos vecinos a un nodo pasado
     int tamañoGrafo(); //devuelve el tamaño del grafo (numero nodos)
     int gradoNodo(int nodo); //devuelve el grado de un nodo pasado
+    int distanciaEntreNodos(int nodoOrigen, int nodoDestino); //devuelve el numero de aristas minimo que unen ambos nodos
+
 }

@@ -53,10 +53,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Principal">
+  <component name="RunManager" selected="JUnit.GrafoNDTest.distanciaEntreNodosTest">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="AMI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest.distanciaEntreNodosTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="METHOD_NAME" value="distanciaEntreNodosTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -91,23 +101,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GrafoNDTest.tamañoGrafoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="AMI" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
-      <option name="METHOD_NAME" value="tamañoGrafoTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GrafoNDTest.distanciaEntreNodosTest" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.GrafoNDTest.gradoNodoTest" />
         <item itemvalue="JUnit.GrafoNDTest.nodos" />
         <item itemvalue="JUnit.GrafoNDTest.nodosVecinosException" />
-        <item itemvalue="JUnit.GrafoNDTest.tamañoGrafoTest" />
       </list>
     </recent_temporary>
   </component>
