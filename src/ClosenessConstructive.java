@@ -32,7 +32,9 @@ public class ClosenessConstructive implements Constructive {
         return conjuntoSolucion;
     }
 
-    private Float closenessCentrality(Grafo grafo, Integer nodo) {
+    /*
+       EN ESTE METODO SE USA EL METODO DE GRAFOS distanciaEntreNodos, EL CUAL NO FUNCIONA CORRECTAMENTE. CUANDO SE CONSIGA HACER FUNCIONAR, SE USA ESTE.
+       private Float closenessCentrality(Grafo grafo, Integer nodo) {
         int valorDistancia=0;
         for(Integer nodoAux: grafo.nodos()){
             if(nodo==nodoAux){
@@ -41,6 +43,14 @@ public class ClosenessConstructive implements Constructive {
             valorDistancia=valorDistancia+grafo.distanciaEntreNodos(nodo,nodoAux);
         }
         return (float)1/valorDistancia;
-
+    }
+     */
+    private Float closenessCentrality(Grafo grafo, int nodo){
+        int valorDistancia=0;
+        int[] distancias=grafo.distanciaANodos(nodo);
+        for(int distanciaNodo: distancias){
+            valorDistancia=valorDistancia+distanciaNodo;
+        }
+        return (float)1/valorDistancia;
     }
 }

@@ -76,4 +76,11 @@ class GrafoNDTest {
         assertEquals(grafo.distanciaEntreNodos(1,3),1);
         assertNotEquals(grafo.distanciaEntreNodos(1,4),1);
     }
+    @Test
+    void distanciaANodosTest(){
+        Grafo grafo=crearGrafo();
+        assertEquals(grafo.distanciaANodos(1)[4],2);
+        assertEquals(grafo.distanciaANodos(1)[3],1);
+        assertNotEquals(grafo.distanciaANodos(1)[4],1);
+    }
 }

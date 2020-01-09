@@ -8,6 +8,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="AMI" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -28,6 +31,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -53,10 +57,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GrafoNDTest.distanciaEntreNodosTest">
+  <component name="RunManager" selected="JUnit.GrafoNDTest.distanciaANodosTest">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="AMI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrafoNDTest.distanciaANodosTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="METHOD_NAME" value="distanciaANodosTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -91,23 +105,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GrafoNDTest.nodosVecinosException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="AMI" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
-      <option name="METHOD_NAME" value="nodosVecinosException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GrafoNDTest.distanciaANodosTest" />
         <item itemvalue="JUnit.GrafoNDTest.distanciaEntreNodosTest" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.GrafoNDTest.gradoNodoTest" />
         <item itemvalue="JUnit.GrafoNDTest.nodos" />
-        <item itemvalue="JUnit.GrafoNDTest.nodosVecinosException" />
       </list>
     </recent_temporary>
   </component>
