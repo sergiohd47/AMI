@@ -23,17 +23,20 @@ public class Principal {
         //Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
         //Constructive constructive=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
         Constructive constructive=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
+        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((ClosenessConstructive) constructive).getListaClosenessSemilla();
+        ArrayList<Pair<Integer,Float>> listaClosenessCompleta= ((ClosenessConstructive) constructive).getListaClosenessCompleta();
+        Constructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA, listaClosenessCompleta); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
+        ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
-        HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
-        ArrayList<Pair<Integer,Float>> listaCloseness= ((ClosenessConstructive) constructive).getListaCloseness();
+        //HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
+        HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND);
         long finalConstructivo=System.currentTimeMillis();
         System.out.println("CONJUNTO NODOS SEMILLA");
         /*for(Integer semilla: conjuntoNodosSemilla){
             System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
         }
          */
-
-        for(Pair<Integer, Float> par: listaCloseness){
+        for(Pair<Integer, Float> par: listaClosenessSemilla){
             System.out.println("Nodo: "+par.getKey()+" con valor de centralidad: "+par.getValue());
         }
         long inicioSolucion=System.currentTimeMillis();

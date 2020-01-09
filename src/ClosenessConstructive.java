@@ -10,11 +10,12 @@ import java.util.HashSet;
 public class ClosenessConstructive implements Constructive {
     private int numeroNodosEscoger;
     private ComparadorCloseness comparadorCentralidad;
-    private ArrayList<Pair<Integer,Float>> listaCloseness;
+    private ArrayList<Pair<Integer,Float>> listaClosenessSemilla;
+    private ArrayList<Pair<Integer,Float>> listaClosenessCompleta;
     public ClosenessConstructive(int numeroNodosEscoger){
         this.numeroNodosEscoger=numeroNodosEscoger;
         this.comparadorCentralidad=new ComparadorCloseness();
-        this.listaCloseness=new ArrayList<>();
+        this.listaClosenessSemilla=new ArrayList<>();
     }
     @Override
     public HashSet<Integer> construirSolucion(Grafo grafo) {
@@ -28,9 +29,10 @@ public class ClosenessConstructive implements Constructive {
         }
         Collections.sort(listaNodosCC,this.comparadorCentralidad); //SE ORDENA EN FUNCION DE LA CENTRALIDAD, EN ORDEN: DE MENOR A MAYOR
         Collections.reverse(listaNodosCC);
+        this.listaClosenessCompleta.addAll(listaNodosCC);
         for(int i=0;i<this.numeroNodosEscoger;i++){
             conjuntoSolucion.add(listaNodosCC.get(i).getKey());
-            this.listaCloseness.add(listaNodosCC.get(i));
+            this.listaClosenessSemilla.add(listaNodosCC.get(i));
         }
         return conjuntoSolucion;
     }
@@ -57,7 +59,11 @@ public class ClosenessConstructive implements Constructive {
         return (float)1/valorDistancia;
     }
 
-    public ArrayList<Pair<Integer, Float>> getListaCloseness() {
-        return listaCloseness;
+    public ArrayList<Pair<Integer, Float>> getListaClosenessSemilla() {
+        return this.listaClosenessSemilla;
     }
+    public ArrayList<Pair<Integer, Float>> getListaClosenessCompleta() {
+        return this.listaClosenessCompleta;
+    }
+
 }
