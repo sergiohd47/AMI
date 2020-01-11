@@ -66,34 +66,6 @@ public class GrafoND implements Grafo{
     }
 
     @Override
-    public int distanciaEntreNodos(int nodoOrigen, int nodoDestino) throws RuntimeException{
-        //NO FUNCIONA CORRECTAMENTE, DE MOMENTO ESPERAREMOS E IREMOS AVANZANDO CON EL METODO: distanciaANodos
-        //RECORRIDO BFS
-        if(nodoOrigen==nodoDestino){
-            throw new RuntimeException("Ambos nodos son iguales.");
-        }
-        int distancia=0;
-        ArrayList<Integer> colaNodos=new ArrayList<>();
-        ArrayList<Integer> nodosVisitados=new ArrayList<>();
-        nodosVisitados.add(nodoOrigen);
-        colaNodos.add(nodoOrigen);
-        while(!colaNodos.isEmpty()){
-             int nodoSacadoCola=colaNodos.remove(0);
-             nodosVisitados.add(nodoSacadoCola);
-             for(Integer nodoVecino: this.nodosVecinos(nodoSacadoCola)){
-                 if(!nodosVisitados.contains(nodoVecino)){
-                     if (nodoVecino==nodoDestino){
-                         break;
-                     }
-                     colaNodos.add(nodoVecino);
-                     distancia++;
-                 }
-             }
-        }
-        return distancia;
-    }
-
-    @Override
     public int[] distanciaANodos(int nodo) {
         ArrayList<Integer> cola=new ArrayList<>();
         cola.add(nodo);
