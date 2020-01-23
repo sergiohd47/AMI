@@ -19,26 +19,26 @@ public class NormalClosenessConstructive implements Constructive {
     public HashSet<Integer> construirSolucion(Grafo grafo) {
         HashSet<Integer> solucion=new HashSet<>();
         ArrayList<Pair<Integer,Float>> listaCloseness=construirListaCloseness(grafo);
-        System.out.println("LISTA CLOSENESS COMPLETA");
-        System.out.println(listaCloseness);
-        System.out.println("---");
+        //System.out.println("LISTA CLOSENESS COMPLETA");
+        //System.out.println(listaCloseness);
+        //System.out.println("---");
         while(true) {
             float valorAlpha = (float) Math.random() * 1;
             Pair<Integer, Float> parGMax = listaCloseness.get(0);
-            System.out.println("EJECUCION PASO A PASO");
-            System.out.println("Valor alpha: "+valorAlpha);
-            System.out.println("ParGMax: "+parGMax);
+            //System.out.println("EJECUCION PASO A PASO");
+            //System.out.println("Valor alpha: "+valorAlpha);
+            //System.out.println("ParGMax: "+parGMax);
             Pair<Integer, Float> parGMin = listaCloseness.get(listaCloseness.size() - 1);
-            System.out.println("ParGMin: "+parGMin);
+            //System.out.println("ParGMin: "+parGMin);
             float valorUmbral = parGMax.getValue() - (valorAlpha * (parGMax.getValue() - parGMin.getValue()));
-            System.out.println("Valor umbral: "+valorUmbral);
+            //System.out.println("Valor umbral: "+valorUmbral);
             for (Pair<Integer, Float> par : listaCloseness) {
                 if (par.getValue() >= valorUmbral) {
                     solucion.add(par.getKey());
                     Pair<Integer,Float> parBorrado=listaCloseness.remove(0);
-                    System.out.println("Semilla introducida: "+par);
-                    System.out.println("Par borrado lista: "+parBorrado);
-                    System.out.println();
+                    //System.out.println("Semilla introducida: "+par);
+                    //System.out.println("Par borrado lista: "+parBorrado);
+                    //System.out.println();
                     this.listaClosenessSemilla.add(par);
                     if(solucion.size()==this.numeroNodosEscoger){
                         return solucion;
