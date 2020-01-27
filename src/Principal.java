@@ -16,7 +16,7 @@ public class Principal {
     public static void main(String args[]){
         HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_REAL);
+        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_PRUEBAS);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
         long inicioConstructivo= System.currentTimeMillis();
