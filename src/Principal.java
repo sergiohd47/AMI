@@ -12,6 +12,7 @@ public class Principal {
     //Ruta del fichero pasada a fuego. Mas adelante mejorar para pasar varias rutas diferentes
     private static final String RUTA_FICHERO_PRUEBAS="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snapPrueba/snapGrafoPrueba.txt";
     private static final String RUTA_FICHERO_REAL="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snap2/email-Eu-core.txt";
+    private static final int NUMERO_SIMULACIONES=30; //NUMERO SIMULACIONES QUE HACE EL ALGORITMO (debido al teoria central del limite, se elige 30)
 
     public static void main(String args[]){
         HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
@@ -34,14 +35,13 @@ public class Principal {
         /*for(Integer semilla: conjuntoNodosSemilla){
             System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
         }
-         */
         for(Pair<Integer, Float> par: listaClosenessSemilla){
             System.out.println("Nodo: "+par.getKey()+" con valor de centralidad: "+par.getValue());
-        }
+        }*/
         long inicioSolucion=System.currentTimeMillis();
         System.out.println("----------------------");
         System.out.println(" ");
-        for(int i=1;i<31;i++) {
+        for(int i=1;i<NUMERO_SIMULACIONES+1;i++) {
             Solution solucion = new Solution();
             HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
             mapaConjuntos.put(i,conjuntoInfectados);
@@ -108,6 +108,6 @@ public class Principal {
         System.out.println("Porcentaje longitud conjunto=9: ("+numeroConj9+"/30)  "+(float)(numeroConj9*100)/30+"%");
         System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
          */
-        System.out.println("PROMEDIO INFECTADOS: "+promedioLongitudInfectados/30);
+        System.out.println("PROMEDIO INFECTADOS: "+promedioLongitudInfectados/NUMERO_SIMULACIONES);
     }
 }

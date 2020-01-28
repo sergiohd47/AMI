@@ -18,9 +18,9 @@ public class RandomConstructive implements Constructive {
         HashSet<Integer> conjuntoNodosSemilla=new HashSet<>();
         ArrayList<Integer> listaNodos=new ArrayList<>();
         listaNodos.addAll(conjuntoNodosGrafo);
-        Collections.shuffle(listaNodos); //DESORDENA LA LISTA DE NODOS PARA CONSEGUIR UNA MAYOR ALEATORIEDAD
+        Random random=new Random();
         for(int i=0;i<this.numeroNodosAEscoger;i++){
-            conjuntoNodosSemilla.add(listaNodos.get(i));
+            conjuntoNodosSemilla.add(listaNodos.get(random.nextInt(listaNodos.size())));
         }
         return conjuntoNodosSemilla;
     }

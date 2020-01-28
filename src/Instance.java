@@ -13,7 +13,7 @@ public class Instance {
     private float probabilidadArcos;
     private int numeroNodos;
     public Instance(){
-        this.probabilidadArcos=(float)Math.random()*1; //numero aleatorio entre 0 y 1 (simula la probabilidad) (7 decimales)
+        this.probabilidadArcos=(float)Math.random(); //numero aleatorio entre 0 y 1 (simula la probabilidad) (7 decimales)
         this.numeroNodos=0;
     }
 

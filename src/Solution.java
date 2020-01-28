@@ -23,7 +23,7 @@ public class Solution {
                 }
                 conjuntoNodosVisitados.add(nodo);
                 for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
-                    float probabilidadSolucion=(float)Math.random()*1;
+                    float probabilidadSolucion=(float)Math.random();
                     if((!conjuntoNodosActivos.contains(nodoPosInfect)&&(probabilidadArcos>probabilidadSolucion))){
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
