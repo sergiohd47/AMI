@@ -3,6 +3,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author Sergio Hernandez Dominguez
@@ -16,98 +17,100 @@ public class Principal {
 
     public static void main(String args[]){
         HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
+        HashMap<Integer, ArrayList<HashSet<Integer>>> mapaPromedioConjSemilla=new HashMap<>();
+        int mayorPromedio=Integer.MIN_VALUE;
+        ArrayList<HashSet<Integer>> lista=new ArrayList<>();
+        mapaPromedioConjSemilla.put(mayorPromedio,lista);
         Instance instance=new Instance();
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_PRUEBAS);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
-        long inicioConstructivo= System.currentTimeMillis();
+        //long inicioConstructivo= System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
         //Constructive constructive=new RandomConstructive(NODOS_SEMILLA);
         //Constructive constructive=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
-        Constructive constructive=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
+        //Constructive constructive=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
         //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((ClosenessConstructive) constructive).getListaClosenessSemilla();
         Constructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
-        ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
+        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         //HashSet<Integer> conjuntoNodosSemilla= constructive.construirSolucion(grafoND);
-        HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND);
-        long finalConstructivo=System.currentTimeMillis();
-        System.out.println("CONJUNTO NODOS SEMILLA");
-        /*for(Integer semilla: conjuntoNodosSemilla){
-            System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
+        HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
+        HashSet<Integer> conjuntoNodosEntradaSemilla= new HashSet<>();
+        for(Integer nodo: grafoND.nodos()){
+            conjuntoNodosEntradaSemilla.add(nodo);
         }
-        for(Pair<Integer, Float> par: listaClosenessSemilla){
-            System.out.println("Nodo: "+par.getKey()+" con valor de centralidad: "+par.getValue());
-        }*/
-        long inicioSolucion=System.currentTimeMillis();
-        System.out.println("----------------------");
-        System.out.println(" ");
-        for(int i=1;i<NUMERO_SIMULACIONES+1;i++) {
-            Solution solucion = new Solution();
-            HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNodosSemilla, probabilidadArcos);
-            mapaConjuntos.put(i,conjuntoInfectados);
-            System.out.println("SOLUCION "+i);
-            System.out.println("Conjunto semilla: "+conjuntoNodosSemilla);
-            System.out.println("Tamaño conj: "+conjuntoInfectados.size());
-            System.out.println("Conjunto infectados: "+conjuntoInfectados);
-            System.out.println("------------------");
-        }
-        long finalSolucion=System.currentTimeMillis();
-        /*
-        int numeroConj3=0;
-        int numeroConj4=0;
-        int numeroConj5=0;
-        int numeroConj6=0;
-        int numeroConj7=0;
-        int numeroConj8=0;
-        int numeroConj9=0;
-        int numeroConj10=0;
-         */
-
-        int promedioLongitudInfectados=0;
-        for(Integer clave: mapaConjuntos.keySet()){
-            promedioLongitudInfectados=promedioLongitudInfectados+mapaConjuntos.get(clave).size();
-            /*
-            switch (mapaConjuntos.get(clave).size()){
-                case 3:
-                    numeroConj3++;
-                    break;
-                case 4:
-                    numeroConj4++;
-                    break;
-                case 5:
-                    numeroConj5++;
-                    break;
-                case 6:
-                    numeroConj6++;
-                    break;
-                case 7:
-                    numeroConj7++;
-                    break;
-                case 8:
-                    numeroConj8++;
-                    break;
-                case 9:
-                    numeroConj9++;
-                    break;
-                default:
-                    numeroConj10++;
+        conjuntoNodosEntradaSemilla.removeAll(conjuntoNodosSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
+        //long finalConstructivo=System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+        int promedioLongitudInfectados = 0;
+        while(true) {
+            //System.out.println("CONJUNTO NODOS SEMILLA");
+            /*for(Integer semilla: conjuntoNodosSemilla){
+                System.out.println("Nodo: "+semilla+" con grado: "+grafoND.gradoNodo(semilla));
             }
-             */
+            for(Pair<Integer, Float> par: listaClosenessSemilla){
+                System.out.println("Nodo: "+par.getKey()+" con valor de centralidad: "+par.getValue());
+            }*/
+            //long inicioSolucion = System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+            //System.out.println("----------------------");
+            //System.out.println(" ");
+            RandomImprovement randomImprovement=new RandomImprovement();
+            for(Integer nodoSalida: conjuntoNodosSemilla) {
+                for(Integer nodoEntrada: conjuntoNodosEntradaSemilla) {
+                    System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
+                    System.out.println("----------------------");
+                    HashSet<Integer> conjuntoNuevasSemillas= randomImprovement.improve(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
+                    System.out.println("NODO SALE: "+nodoSalida);
+                    System.out.println("NODO ENTRA: "+nodoEntrada);
+                    System.out.println("----------------------");
+                    System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
+                    System.out.println("----------------------");
+                    for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
+                        Solution solucion = new Solution();
+                        HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada(grafoND, conjuntoNuevasSemillas, probabilidadArcos);
+                        mapaConjuntos.put(i, conjuntoInfectados);
+                        System.out.println("SOLUCION " + i);
+                        System.out.println("Conjunto semillas: "+conjuntoNuevasSemillas);
+                        System.out.println("Tamaño conj: " + conjuntoInfectados.size());
+                        System.out.println("Conjunto infectados: " + conjuntoInfectados);
+                        System.out.println("------------------");
+                    }
+                    //long finalSolucion = System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+                    for (Integer clave : mapaConjuntos.keySet()) {
+                        promedioLongitudInfectados = promedioLongitudInfectados + mapaConjuntos.get(clave).size();
+                    }
+                    int promedio=promedioLongitudInfectados/NUMERO_SIMULACIONES;
+                    ArrayList<HashSet<Integer>> listaSacada=mapaPromedioConjSemilla.get(promedio);
+                    if(listaSacada==null){
+                        listaSacada=new ArrayList<>();
+                        listaSacada.add(conjuntoNuevasSemillas);
+                        mapaPromedioConjSemilla.put(promedio,listaSacada);
+                    }else{
+                        listaSacada.add(conjuntoNuevasSemillas);
+                    }
+
+                    mayorPromedio=Math.max(mayorPromedio,promedio);
+                    System.out.println("PROMEDIO INFECTADOS: " + promedio);
+                    System.out.println("--------------------------------------------------------------------");
+                    System.out.println();
+                    System.out.println("--------------------------------------------------------------------");
+                    promedioLongitudInfectados=0;
+
+                }
+            }
+            System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
+            for (Map.Entry<Integer,ArrayList<HashSet<Integer>>> entrada: mapaPromedioConjSemilla.entrySet()){
+                System.out.println(entrada);
+            }
+            System.out.println();
+            System.out.println("NUMERO DE CONJUNTOS DE INFECCION MAXIMA: "+mapaPromedioConjSemilla.get(mayorPromedio).size());
+            System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio)+ " -- PROMEDIO DE INFECCION: "+mayorPromedio);
+            break;
         }
-        double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
+        /*double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
         System.out.println("TIEMPO CONSTRUCTIVO: "+tiempoConstructivo);
         double tiempoSolucion=(double)finalSolucion-inicioSolucion;
         System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
-        /*
-        System.out.println("Porcentaje longitud conjunto=3: ("+numeroConj3+"/30)  "+(float)(numeroConj3*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=4: ("+numeroConj4+"/30)  "+(float)(numeroConj4*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=5: ("+numeroConj5+"/30)  "+(float)(numeroConj5*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=6: ("+numeroConj6+"/30)  "+(float)(numeroConj6*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=7: ("+numeroConj7+"/30)  "+(float)(numeroConj7*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=8: ("+numeroConj8+"/30)  "+(float)(numeroConj8*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=9: ("+numeroConj9+"/30)  "+(float)(numeroConj9*100)/30+"%");
-        System.out.println("Porcentaje longitud conjunto=10: ("+numeroConj10+"/30)  "+(float)(numeroConj10*100)/30+"%");
-         */
-        System.out.println("PROMEDIO INFECTADOS: "+promedioLongitudInfectados/NUMERO_SIMULACIONES);
+        */
+
     }
 }
