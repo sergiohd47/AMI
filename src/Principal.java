@@ -53,12 +53,12 @@ public class Principal {
             //long inicioSolucion = System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
             //System.out.println("----------------------");
             //System.out.println(" ");
-            RandomImprovement randomImprovement=new RandomImprovement();
+            Improvement randomImprovement=new RandomImprovement();
             for(Integer nodoSalida: conjuntoNodosSemilla) {
                 for(Integer nodoEntrada: conjuntoNodosEntradaSemilla) {
                     System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
                     System.out.println("----------------------");
-                    HashSet<Integer> conjuntoNuevasSemillas= randomImprovement.improve(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
+                    HashSet<Integer> conjuntoNuevasSemillas= (HashSet<Integer>) randomImprovement.improve(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
                     System.out.println("NODO SALE: "+nodoSalida);
                     System.out.println("NODO ENTRA: "+nodoEntrada);
                     System.out.println("----------------------");
