@@ -16,6 +16,7 @@ public class ClosenessConstructive implements Constructive {
         this.numeroNodosEscoger=numeroNodosEscoger;
         this.comparadorCentralidad=new ComparadorCloseness();
         this.listaClosenessSemilla=new ArrayList<>();
+        this.listaClosenessCompleta=new ArrayList<>();
     }
     @Override
     public HashSet<Integer> construirSolucion(Grafo grafo) {
@@ -23,15 +24,13 @@ public class ClosenessConstructive implements Constructive {
             throw new RuntimeException("Grafo con longitud menor que numero de semillas.");
         }
         HashSet<Integer> conjuntoSolucion=new HashSet<>();
-        ArrayList<Pair<Integer,Float>> listaNodosCC=new ArrayList<>();
         for(Integer nodo: grafo.nodos()){
-            listaNodosCC.add(new Pair<>(nodo,closenessCentrality(grafo,nodo)));
+            this.listaClosenessCompleta.add(new Pair<>(nodo,closenessCentrality(grafo,nodo)));
         }
-        Collections.sort(listaNodosCC,this.comparadorCentralidad); //SE ORDENA EN FUNCION DE LA CENTRALIDAD, EN ORDEN: DE MAYOR A MENOR
-        this.listaClosenessCompleta.addAll(listaNodosCC);
+        Collections.sort(this.listaClosenessCompleta,this.comparadorCentralidad); //SE ORDENA EN FUNCION DE LA CENTRALIDAD, EN ORDEN: DE MAYOR A MENOR
         for(int i=0;i<this.numeroNodosEscoger;i++){
-            conjuntoSolucion.add(listaNodosCC.get(i).getKey());
-            this.listaClosenessSemilla.add(listaNodosCC.get(i));
+            conjuntoSolucion.add(this.listaClosenessCompleta.get(i).getKey());
+            this.listaClosenessSemilla.add(this.listaClosenessCompleta.get(i));
         }
         return conjuntoSolucion;
     }
