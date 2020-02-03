@@ -18,6 +18,8 @@ public class GrafoND implements Grafo{
             this.matrizAdyacencia[i][0]= false;
         }
     }
+
+
     @Override
     public Collection<Integer> nodos() {
         HashSet<Integer> conjuntoSolucion=new HashSet<>();

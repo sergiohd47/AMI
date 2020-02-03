@@ -7,7 +7,12 @@ import java.util.Iterator;
 //Guarda la informacion correspondiente a la solucion. Tendra una referencia a la Instance y despues, la estructura necesaria
 // para representar la solucion al problema.
 public class Solution {
+    private Grafo grafo;
+    private HashSet<Integer> conjuntoNodoSemilla=new HashSet<>();
+
     public HashSet<Integer> procedimientoCascada(Grafo grafo, HashSet<Integer> conjuntoNodoSemilla, float probabilidadArcos){
+        this.grafo=grafo;
+        this.conjuntoNodoSemilla=conjuntoNodoSemilla;
         boolean terminado=false;
         HashSet<Integer> conjuntoNodosActivos=new HashSet<>();
         HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
@@ -34,5 +39,11 @@ public class Solution {
             terminado=conjuntoNodosFuturosInfec.isEmpty();
         }
         return conjuntoNodosActivos;
+    }
+    public Grafo getGrafo(){
+        return this.grafo;
+    }
+    public HashSet<Integer> getConjuntoNodoSemilla(){
+        return this.conjuntoNodoSemilla;
     }
 }

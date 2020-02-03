@@ -95,7 +95,7 @@ public class Principal {
             System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio)+ " -- PROMEDIO DE INFECCION: "+mayorPromedio);
             break;
         }*/
-        /*              CAMBIOS EN FUNCION DEL CLOSENESS
+        //             CAMBIOS EN FUNCION DEL CLOSENESS
         ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
         for(Pair<Integer,Float> par: listaClosenessCompleta) {
             listaNodosEntradaSemilla.add(par);
@@ -167,7 +167,7 @@ public class Principal {
             System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio) + " -- PROMEDIO DE INFECCION: " + mayorPromedio);
             break;
         }
-        */
+        /*
         //FALTA POR IMPLEMENTAR
         ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
         for(Pair<Integer,Float> par: listaClosenessCompleta) {
@@ -181,11 +181,24 @@ public class Principal {
             conjuntoSemillas.add(parSemilla.getKey());
         }
         int promedioLongitudInfectados = 0;
+        Float numeroBeta=(float)Math.random();
+        System.out.println("NUMERO BETA: "+numeroBeta);
+        HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
+        HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
+        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+            if(parSemilla.getValue()<numeroBeta){
+                semillasSalidaAcotadas.add(parSemilla);
+            }
+        }
+        for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
+            if(parEntrada.getValue()>numeroBeta){
+                nodosEntradaAcotados.add(parEntrada);
+            }
+        }
         while(true) {
-            Float numeroBeta=(float)Math.random();
             Improvement normalClosenessImprovement = new NormalClosenessImprovement();
-            for (Pair<Integer,Float> parSalida : listaClosenessSemilla) {
-                for (Pair<Integer,Float> parEntrada : listaNodosEntradaSemilla) {
+            for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
+                for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
                     System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
                         System.out.println(parSemilla);

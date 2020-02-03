@@ -5,8 +5,12 @@ import java.util.HashSet;
  * @author Sergio Hernandez Dominguez
  */
 public class RandomImprovement implements Improvement {
-
     @Override
+    public void improve(Solution solucion) {
+
+    }
+
+    /*@Override
     public HashSet<Integer> improve(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, Collection conjuntoNodosSemilla) {
         HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
         conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);
@@ -14,4 +18,6 @@ public class RandomImprovement implements Improvement {
         conjuntoSemillaSolucion.add(nodoCandidatoEntrar);
         return conjuntoSemillaSolucion;
     }
+
+     */
 }
