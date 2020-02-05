@@ -7,5 +7,6 @@ import java.util.HashSet;
 //Interfaz que recibe una solucion y la mejora.
 public interface Improvement {
     void improve(Solution solucion);
+
     //Collection improve(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, Collection conjuntoNodosSemilla);
 }

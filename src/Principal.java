@@ -96,10 +96,8 @@ public class Principal {
             break;
         }*/
         //             CAMBIOS EN FUNCION DEL CLOSENESS
-        ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
-        for(Pair<Integer,Float> par: listaClosenessCompleta) {
-            listaNodosEntradaSemilla.add(par);
-        }
+        /*ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
+        listaNodosEntradaSemilla.addAll(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
         Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
@@ -167,12 +165,9 @@ public class Principal {
             System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio) + " -- PROMEDIO DE INFECCION: " + mayorPromedio);
             break;
         }
-        /*
-        //FALTA POR IMPLEMENTAR
-        ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
-        for(Pair<Integer,Float> par: listaClosenessCompleta) {
-            listaNodosEntradaSemilla.add(par);
-        }
+        */
+        //              CAMBIOS NORMALIZADOS EN FUNCION DEL CLOSSENES
+        ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
         Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
@@ -181,21 +176,21 @@ public class Principal {
             conjuntoSemillas.add(parSemilla.getKey());
         }
         int promedioLongitudInfectados = 0;
-        Float numeroBeta=(float)Math.random();
-        System.out.println("NUMERO BETA: "+numeroBeta);
-        HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
-        HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
-        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
-            if(parSemilla.getValue()<numeroBeta){
-                semillasSalidaAcotadas.add(parSemilla);
-            }
-        }
-        for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
-            if(parEntrada.getValue()>numeroBeta){
-                nodosEntradaAcotados.add(parEntrada);
-            }
-        }
         while(true) {
+            Float numeroBeta=(float)Math.random();
+            System.out.println("NUMERO BETA: "+numeroBeta);
+            HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
+            HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
+            for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+                if(parSemilla.getValue()<numeroBeta){
+                    semillasSalidaAcotadas.add(parSemilla);
+                }
+            }
+            for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
+                if(parEntrada.getValue()>numeroBeta){
+                    nodosEntradaAcotados.add(parEntrada);
+                }
+            }
             Improvement normalClosenessImprovement = new NormalClosenessImprovement();
             for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
                 for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
@@ -204,7 +199,6 @@ public class Principal {
                         System.out.println(parSemilla);
                     }
                     System.out.println("----------------------");
-
                     Integer nodoSalida=parSalida.getKey();
                     Integer nodoEntrada=parEntrada.getKey();
                     HashSet<Integer> conjuntoNuevasSemillas = (HashSet<Integer>) normalClosenessImprovement.improve(nodoSalida, nodoEntrada, conjuntoSemillas);
@@ -243,7 +237,8 @@ public class Principal {
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");
                     promedioLongitudInfectados = 0;
-
+                    semillasSalidaAcotadas.remove(parSalida);
+                    nodosEntradaAcotados.remove(parEntrada);
                 }
             }
             System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
