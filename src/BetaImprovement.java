@@ -5,19 +5,18 @@ import java.util.*;
 /**
  * @author Sergio Hernandez Dominguez
  */
-//IMPROVE DONDE SE REALIZAN CAMBIOS EN FUNCION DE SU CENTRALIDAD
-public class ClosenessImprovement implements Improvement {
+//IMPROVE DONDE SE REALIZAN CAMBIOS EN FUNCION DE SU CENTRALIDAD PERO AÑADIENDO UN NUMERO BETA PARA ACOTAR LA BUSQUEDA
+public class BetaImprovement implements Improvement {
     private static final int NUMERO_SIMULACIONES=30; //NUMERO SIMULACIONES QUE HACE EL ALGORITMO (debido al teoria central del limite, se elige 30)
     @Override
     public void improve(Solution solucion) {
-        HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
+        HashMap<Integer, HashSet<Integer>> mapaConjuntos=new HashMap<>();
         HashMap<Integer, ArrayList<HashSet<Integer>>> mapaPromedioConjSemilla=new HashMap<>();
         int mayorPromedio=Integer.MIN_VALUE;
         ArrayList<HashSet<Integer>> lista=new ArrayList<>();
         mapaPromedioConjSemilla.put(mayorPromedio,lista);
         Grafo grafoND=solucion.getGrafo();
-        ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
-        listaNodosEntradaSemilla.addAll(listaClosenessCompleta);
+        ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
         Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
@@ -27,9 +26,22 @@ public class ClosenessImprovement implements Improvement {
         }
         int promedioLongitudInfectados = 0;
         while(true) {
-            Improvement closenessImprovement = new ClosenessImprovement();
-            for (Pair<Integer,Float> parSalida : listaClosenessSemilla) {
-                for (Pair<Integer,Float> parEntrada : listaNodosEntradaSemilla) {
+            Float numeroBeta=(float)Math.random();
+            System.out.println("NUMERO BETA: "+numeroBeta);
+            HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
+            HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
+            for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+                if(parSemilla.getValue()<numeroBeta){
+                    semillasSalidaAcotadas.add(parSemilla);
+                }
+            }
+            for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
+                if(parEntrada.getValue()>numeroBeta){
+                    nodosEntradaAcotados.add(parEntrada);
+                }
+            }
+            for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
+                for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
                     System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
                         System.out.println(parSemilla);
@@ -72,7 +84,8 @@ public class ClosenessImprovement implements Improvement {
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");
                     promedioLongitudInfectados = 0;
-
+                    semillasSalidaAcotadas.remove(parSalida);
+                    nodosEntradaAcotados.remove(parEntrada);
                 }
             }
             System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
@@ -85,7 +98,6 @@ public class ClosenessImprovement implements Improvement {
             break;
         }
     }
-
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {
         HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
         conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);

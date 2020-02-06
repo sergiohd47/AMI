@@ -8,15 +8,19 @@ import java.util.Iterator;
 // para representar la solucion al problema.
 public class Solution {
     private Grafo grafo;
-    private HashSet<Integer> conjuntoNodoSemilla=new HashSet<>();
-
-    public HashSet<Integer> procedimientoCascada(Grafo grafo, HashSet<Integer> conjuntoNodoSemilla, float probabilidadArcos){
+    private HashSet<Integer> conjuntoNodoSemilla;
+    private float probabilidadArcos;
+    public Solution(Grafo grafo, HashSet<Integer> conjuntoNodoSemilla, float probabilidadArcos){
         this.grafo=grafo;
         this.conjuntoNodoSemilla=conjuntoNodoSemilla;
+        this.probabilidadArcos=probabilidadArcos;
+    }
+
+    public HashSet<Integer> procedimientoCascada(){
         boolean terminado=false;
         HashSet<Integer> conjuntoNodosActivos=new HashSet<>();
         HashSet<Integer> conjuntoNodosFuturosInfec=new HashSet<>();
-        conjuntoNodosActivos.addAll(conjuntoNodoSemilla);
+        conjuntoNodosActivos.addAll(this.conjuntoNodoSemilla);
         HashSet<Integer> conjuntoNodosActivosUltimos=new HashSet<>();
         HashSet<Integer> conjuntoNodosVisitados=new HashSet<>();
         conjuntoNodosActivosUltimos.addAll(conjuntoNodosActivos);
@@ -27,9 +31,9 @@ public class Solution {
                     continue;
                 }
                 conjuntoNodosVisitados.add(nodo);
-                for(Integer nodoPosInfect: grafo.nodosVecinos(nodo)){
+                for(Integer nodoPosInfect: this.grafo.nodosVecinos(nodo)){
                     float probabilidadSolucion=(float)Math.random();
-                    if((!conjuntoNodosActivos.contains(nodoPosInfect)&&(probabilidadArcos>probabilidadSolucion))){
+                    if((!conjuntoNodosActivos.contains(nodoPosInfect)&&(this.probabilidadArcos>probabilidadSolucion))){
                         conjuntoNodosFuturosInfec.add(nodoPosInfect);
                     }
                 }
@@ -45,5 +49,8 @@ public class Solution {
     }
     public HashSet<Integer> getConjuntoNodoSemilla(){
         return this.conjuntoNodoSemilla;
+    }
+    public float getProbabilidadArcos(){
+        return this.probabilidadArcos;
     }
 }
