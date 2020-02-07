@@ -17,6 +17,14 @@ public class ClosenessImprovement implements Improvement {
         mapaPromedioConjSemilla.put(mayorPromedio,lista);
         Grafo grafoND=solucion.getGrafo();
         ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
+        ArrayList<Pair<Integer, Float>> listaClosenessCompleta=new ArrayList<>();
+        for(Integer nodo: grafoND.nodos()){
+            listaClosenessCompleta.add(new Pair<>(nodo,grafoND.closenessCentrality(nodo)));
+        }
+        ArrayList<Pair<Integer, Float>> listaClosenessSemilla=new ArrayList<>();
+        for(Integer nodoSemilla: solucion.getConjuntoNodoSemilla()){
+            listaClosenessSemilla.add(new Pair<>(nodoSemilla,grafoND.closenessCentrality(nodoSemilla)));
+        }
         listaNodosEntradaSemilla.addAll(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
@@ -27,7 +35,6 @@ public class ClosenessImprovement implements Improvement {
         }
         int promedioLongitudInfectados = 0;
         while(true) {
-            Improvement closenessImprovement = new ClosenessImprovement();
             for (Pair<Integer,Float> parSalida : listaClosenessSemilla) {
                 for (Pair<Integer,Float> parEntrada : listaNodosEntradaSemilla) {
                     System.out.println("CONJUNTO SEMILLA INICIAL: ");

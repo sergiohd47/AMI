@@ -17,15 +17,16 @@ public class Principal {
         Grafo grafoND=instance.construirGrafo(listaNodos);
         float probabilidadArcos=instance.getProbabilidadArcos();
         //long inicioConstructivo= System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
-        Constructive constructiveRandom=new RandomConstructive(NODOS_SEMILLA);
-        //Constructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
-        //Constructive constructiveCloseness=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
-        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((ClosenessConstructive) constructive).getListaClosenessSemilla();
-        //ArrayList<Pair<Integer,Float>> listaClosenessCompleta=((ClosenessConstructive)constructive).getListaClosenessCompleta();
-        //Constructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
+        //RandomConstructive constructiveRandom=new RandomConstructive(NODOS_SEMILLA);
+        //GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
+        ClosenessConstructive constructiveCloseness=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
+        HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
+        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= constructiveCloseness.getListaClosenessSemilla();
+        //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
         //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
+        //HashSet<Integer> conjuntoNodosSemilla=normalConstructive.construirSolucion(grafoND);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
-        HashSet<Integer> conjuntoNodosSemilla= constructiveRandom.construirSolucion(grafoND);
+        //HashSet<Integer> conjuntoNodosSemilla= constructiveRandom.construirSolucion(grafoND);
         //HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
         Solution solution=new Solution(grafoND,conjuntoNodosSemilla,probabilidadArcos);
         //Improvement randomImprovement=new RandomImprovement();

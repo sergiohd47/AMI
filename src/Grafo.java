@@ -14,4 +14,5 @@ public interface Grafo {
     int tamañoGrafo(); //devuelve el tamaño del grafo (numero nodos)
     int gradoNodo(int nodo); //devuelve el grado de un nodo pasado
     int[] distanciaANodos(int nodo); //devuelve un vector con todas las distancias de un nodo a todos los demas
+    float closenessCentrality(Integer nodo);
 }

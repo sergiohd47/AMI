@@ -15,10 +15,7 @@ public class RandomImprovement implements Improvement {
         mapaPromedioConjSemilla.put(mayorPromedio,lista);
         Grafo grafoND=solucion.getGrafo();
         HashSet<Integer> conjuntoNodosSemilla=solucion.getConjuntoNodoSemilla();
-        HashSet<Integer> conjuntoNodosEntradaSemilla= solucion.getConjuntoNodoSemilla();
-        for(Integer nodo: grafoND.nodos()){
-            conjuntoNodosEntradaSemilla.add(nodo);
-        }
+        HashSet<Integer> conjuntoNodosEntradaSemilla = new HashSet<>(grafoND.nodos());
         conjuntoNodosEntradaSemilla.removeAll(conjuntoNodosSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
         int promedioLongitudInfectados = 0;
         while(true) {
@@ -76,8 +73,7 @@ public class RandomImprovement implements Improvement {
     }
 
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {
-        HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
-        conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);
+        HashSet<Integer> conjuntoSemillaSolucion = new HashSet<>(conjuntoNodosSemilla);
         conjuntoSemillaSolucion.remove(nodoCandidatoSalir);
         conjuntoSemillaSolucion.add(nodoCandidatoEntrar);
         return conjuntoSemillaSolucion;

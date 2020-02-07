@@ -25,7 +25,7 @@ public class ClosenessConstructive implements Constructive {
         }
         HashSet<Integer> conjuntoSolucion=new HashSet<>();
         for(Integer nodo: grafo.nodos()){
-            this.listaClosenessCompleta.add(new Pair<>(nodo,closenessCentrality(grafo,nodo)));
+            this.listaClosenessCompleta.add(new Pair<>(nodo,grafo.closenessCentrality(nodo)));
         }
         Collections.sort(this.listaClosenessCompleta,this.comparadorCentralidad); //SE ORDENA EN FUNCION DE LA CENTRALIDAD, EN ORDEN: DE MAYOR A MENOR
         for(int i=0;i<this.numeroNodosEscoger;i++){
@@ -33,14 +33,6 @@ public class ClosenessConstructive implements Constructive {
             this.listaClosenessSemilla.add(this.listaClosenessCompleta.get(i));
         }
         return conjuntoSolucion;
-    }
-    private Float closenessCentrality(Grafo grafo, int nodo){
-        int valorDistancia=0;
-        int[] distancias=grafo.distanciaANodos(nodo);
-        for(int distanciaNodo: distancias){
-            valorDistancia=valorDistancia+distanciaNodo;
-        }
-        return (float)1/valorDistancia;
     }
 
     public ArrayList<Pair<Integer, Float>> getListaClosenessSemilla() {

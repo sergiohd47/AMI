@@ -86,6 +86,16 @@ public class GrafoND implements Grafo{
         return distancias;
     }
 
+    @Override
+    public float closenessCentrality(Integer nodo) {
+            int valorDistancia=0;
+            int[] distancias=this.distanciaANodos(nodo);
+            for(int distanciaNodo: distancias){
+                valorDistancia=valorDistancia+distanciaNodo;
+            }
+            return (float)1/valorDistancia;
+    }
+
 
     @Override
     public String toString(){
@@ -97,5 +107,6 @@ public class GrafoND implements Grafo{
         }
         return resultado;
     }
+
 
 }

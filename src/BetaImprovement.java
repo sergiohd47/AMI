@@ -16,6 +16,14 @@ public class BetaImprovement implements Improvement {
         ArrayList<HashSet<Integer>> lista=new ArrayList<>();
         mapaPromedioConjSemilla.put(mayorPromedio,lista);
         Grafo grafoND=solucion.getGrafo();
+        ArrayList<Pair<Integer,Float>> listaClosenessCompleta=new ArrayList<>();
+        for(Integer nodo: grafoND.nodos()){
+            listaClosenessCompleta.add(new Pair<>(nodo, grafoND.closenessCentrality(nodo)));
+        }
+        ArrayList<Pair<Integer,Float>> listaClosenessSemilla=new ArrayList<>();
+        for(Integer nodoSemilla: solucion.getConjuntoNodoSemilla()){
+            listaClosenessSemilla.add(new Pair<>(nodoSemilla,grafoND.closenessCentrality(nodoSemilla)));
+        }
         ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
@@ -24,22 +32,30 @@ public class BetaImprovement implements Improvement {
         for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             conjuntoSemillas.add(parSemilla.getKey());
         }
+        float numeroBeta=(float)Math.random();
+        System.out.println("NUMERO BETA: "+numeroBeta);
+        HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
+        HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
+        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+            if(parSemilla.getValue()<numeroBeta){
+                semillasSalidaAcotadas.add(parSemilla);
+            }
+        }
+        System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
+        for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
+            if(parEntrada.getValue()<numeroBeta){
+                nodosEntradaAcotados.add(parEntrada);
+            }
+        }
+        System.out.println("NODOS ENTRADA ACOTADOS: "+nodosEntradaAcotados);
+        if(semillasSalidaAcotadas.isEmpty()||nodosEntradaAcotados.isEmpty()){
+            System.out.println("--------------------------------------------------------------------");
+            System.out.println("EL NUMERO BETA CONDICIONA DEMASIADO LA ACOTACION DE LAS LISTAS");
+            System.out.println("--------------------------------------------------------------------");
+
+        }
         int promedioLongitudInfectados = 0;
         while(true) {
-            Float numeroBeta=(float)Math.random();
-            System.out.println("NUMERO BETA: "+numeroBeta);
-            HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
-            HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
-            for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
-                if(parSemilla.getValue()<numeroBeta){
-                    semillasSalidaAcotadas.add(parSemilla);
-                }
-            }
-            for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
-                if(parEntrada.getValue()>numeroBeta){
-                    nodosEntradaAcotados.add(parEntrada);
-                }
-            }
             for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
                 for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
                     System.out.println("CONJUNTO SEMILLA INICIAL: ");
@@ -84,8 +100,6 @@ public class BetaImprovement implements Improvement {
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");
                     promedioLongitudInfectados = 0;
-                    semillasSalidaAcotadas.remove(parSalida);
-                    nodosEntradaAcotados.remove(parEntrada);
                 }
             }
             System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
