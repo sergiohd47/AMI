@@ -8,6 +8,7 @@ import java.util.*;
 //IMPROVE DONDE SE REALIZAN CAMBIOS EN FUNCION DE SU CENTRALIDAD PERO AÑADIENDO UN NUMERO BETA PARA ACOTAR LA BUSQUEDA
 public class BetaImprovement implements Improvement {
     private static final int NUMERO_SIMULACIONES=30; //NUMERO SIMULACIONES QUE HACE EL ALGORITMO (debido al teoria central del limite, se elige 30)
+    private double tiempoSolution;
     @Override
     public void improve(Solution solucion) {
         HashMap<Integer, HashSet<Integer>> mapaConjuntos=new HashMap<>();
@@ -71,6 +72,7 @@ public class BetaImprovement implements Improvement {
                     System.out.println("----------------------");
                     System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
                     System.out.println("----------------------");
+                    long inicioSolucion=System.currentTimeMillis();
                     for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
                         HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada();
                         mapaConjuntos.put(i, conjuntoInfectados);
@@ -80,7 +82,7 @@ public class BetaImprovement implements Improvement {
                         System.out.println("Conjunto infectados: " + conjuntoInfectados);
                         System.out.println("------------------");
                     }
-                    //long finalSolucion = System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+                    long finalSolucion = System.currentTimeMillis();
                     for (Integer clave : mapaConjuntos.keySet()) {
                         promedioLongitudInfectados = promedioLongitudInfectados + mapaConjuntos.get(clave).size();
                     }
@@ -100,6 +102,7 @@ public class BetaImprovement implements Improvement {
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");
                     promedioLongitudInfectados = 0;
+                    this.tiempoSolution=finalSolucion-inicioSolucion;
                 }
             }
             System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
@@ -112,6 +115,12 @@ public class BetaImprovement implements Improvement {
             break;
         }
     }
+
+    @Override
+    public double getTiempoSolucion() {
+        return this.tiempoSolution;
+    }
+
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {
         HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
         conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);

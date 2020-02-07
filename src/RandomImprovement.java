@@ -6,6 +6,7 @@ import java.util.*;
 //IMPROVE DONDE SE REALIZAN CAMBIOS RANDOM SOBRE AMBOS CONJUNTOS (todos los cambios posibles)
 public class RandomImprovement implements Improvement {
     private static final int NUMERO_SIMULACIONES=30; //NUMERO SIMULACIONES QUE HACE EL ALGORITMO (debido al teoria central del limite, se elige 30)
+    private double tiempoSolucion;
     @Override
     public void improve(Solution solucion) {
         HashMap<Integer,HashSet<Integer>> mapaConjuntos=new HashMap<>();
@@ -29,6 +30,7 @@ public class RandomImprovement implements Improvement {
                     System.out.println("----------------------");
                     System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
                     System.out.println("----------------------");
+                    long inicioSolucion=System.currentTimeMillis();
                     for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
                         HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada();
                         mapaConjuntos.put(i, conjuntoInfectados);
@@ -38,7 +40,7 @@ public class RandomImprovement implements Improvement {
                         System.out.println("Conjunto infectados: " + conjuntoInfectados);
                         System.out.println("------------------");
                     }
-                    //long finalSolucion = System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+                    long finalSolucion = System.currentTimeMillis();
                     for (Integer clave : mapaConjuntos.keySet()) {
                         promedioLongitudInfectados = promedioLongitudInfectados + mapaConjuntos.get(clave).size();
                     }
@@ -58,7 +60,7 @@ public class RandomImprovement implements Improvement {
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");
                     promedioLongitudInfectados=0;
-
+                    this.tiempoSolucion=finalSolucion-inicioSolucion;
                 }
             }
             System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
@@ -70,6 +72,11 @@ public class RandomImprovement implements Improvement {
             System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio)+ " -- PROMEDIO DE INFECCION: "+mayorPromedio);
             break;
         }
+    }
+
+    @Override
+    public double getTiempoSolucion() {
+        return this.tiempoSolucion;
     }
 
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {

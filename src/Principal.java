@@ -12,34 +12,60 @@ public class Principal {
     private static final String RUTA_FICHERO_REAL="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/snap2/email-Eu-core.txt";
 
     public static void main(String args[]){
+        //              INSTANCE
+        long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FICHERO_PRUEBAS);
         Grafo grafoND=instance.construirGrafo(listaNodos);
+        System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         float probabilidadArcos=instance.getProbabilidadArcos();
-        //long inicioConstructivo= System.currentTimeMillis(); SE COMENTA  LO REFERENTE A LOS TIEMPOS
+        long finalInstance=System.currentTimeMillis();
+
+        //              CONSTRUCTIVOS
+        long inicioConstructivo= System.currentTimeMillis();
         //RandomConstructive constructiveRandom=new RandomConstructive(NODOS_SEMILLA);
         //GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
         ClosenessConstructive constructiveCloseness=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
-        HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
-        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= constructiveCloseness.getListaClosenessSemilla();
         //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
-        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
+        HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
         //HashSet<Integer> conjuntoNodosSemilla=normalConstructive.construirSolucion(grafoND);
-        System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         //HashSet<Integer> conjuntoNodosSemilla= constructiveRandom.construirSolucion(grafoND);
         //HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
+        long finalConstructivo=System.currentTimeMillis();
+
+        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= constructiveCloseness.getListaClosenessSemilla();
+        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
+
+        //              SOLUTION
         Solution solution=new Solution(grafoND,conjuntoNodosSemilla,probabilidadArcos);
+
+        //              IMPROVEMENTS
+        long inicioImprovement=System.currentTimeMillis();
         //Improvement randomImprovement=new RandomImprovement();
         //randomImprovement.improve(solution);
         //Improvement closenessImprovement=new ClosenessImprovement();
         //closenessImprovement.improve(solution);
         Improvement betaImprovement=new BetaImprovement();
         betaImprovement.improve(solution);
-        /*double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
+        long finalImprovement=System.currentTimeMillis();
+
+        //              TIEMPOS
+        double tiempoInstancia=(double)finalInstance-inicioInstance;
+        System.out.println("TIEMPO INSTANCIA: "+tiempoInstancia);
+
+        double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
         System.out.println("TIEMPO CONSTRUCTIVO: "+tiempoConstructivo);
-        double tiempoSolucion=(double)finalSolucion-inicioSolucion;
+
+        //double tiempoSolucion=randomImprovement.getTiempoSolucion();
+        //System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
+        //double tiempoSolucion=closenessImprovement.getTiempoSolucion();
+        //System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
+        double tiempoSolucion=betaImprovement.getTiempoSolucion();
         System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
-        */
+
+        double tiempoMejoras=(double)finalImprovement-inicioImprovement;
+        System.out.println("TIEMPO MEJORAS: "+tiempoMejoras);
+
 
     }
 }
