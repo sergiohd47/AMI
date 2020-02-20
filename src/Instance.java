@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Sergio Hernandez Dominguez
  */
@@ -18,38 +21,77 @@ public class Instance {
     }
 
     public ArrayList<Pair<Integer,Integer>> leerFichero(String rutaFichero){
+        //SE USA EL SISTEMA DE PATRONES Y DE REGEX PARA DISTINGUIR ENTRE DOS TIPOS DE FICHEROS, LOS .txt y LOS .csv
+        String patronTXT=".*.txt.*";
+        String patronCSV=".*.csv.*";
+        Pattern patTXT=Pattern.compile(patronTXT);
+        Pattern patCSV=Pattern.compile(patronCSV);
+        Matcher matTXT=patTXT.matcher(rutaFichero);
+        Matcher matCSV=patCSV.matcher(rutaFichero);
         HashSet<Integer> nodos=new HashSet<>();
         ArrayList<Pair<Integer,Integer>> listaNodos= new ArrayList<>();
         File archivo=null;
         FileReader fr=null;
         BufferedReader br=null;
-        try{
-            archivo=new File(rutaFichero);
-            fr=new FileReader(archivo);
-            br=new BufferedReader(fr);
-            String linea;
-            while((linea=br.readLine())!=null){
-                if(linea.indexOf("#")==0){ //Ignoran las lineas que empiezan por "#"
-                    continue;
+        if(matTXT.matches()) {
+            try {
+                archivo = new File(rutaFichero);
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    if (linea.indexOf("#") == 0) { //Ignoran las lineas que empiezan por "#"
+                        continue;
+                    }
+                    //EN LA REGEX DEL FICHERO DE PRUEBA CREADO POR MI, ES NECESARIO PONER "\t".
+                    //EN LA REGEX DEL FICHERO DE SNAP "snap2/email-Eu-core.txt", LA REGEX ES UN ESPACIO " ".
+                    //REGEX: "\\s+" numero de espacios que sean
+                    int nodoOrigen = Integer.parseInt(linea.split("\\s+")[0]);
+                    nodos.add(nodoOrigen);
+                    int nodoDestino = Integer.parseInt(linea.split("\\s+")[1]);
+                    nodos.add(nodoDestino);
+                    listaNodos.add(new Pair<>(nodoOrigen, nodoDestino)); //lista de pares de nodoOrigen y nodoDestino de cada arco.
                 }
-                //EN LA REGEX DEL FICHERO DE PRUEBA CREADO POR MI, ES NECESARIO PONER "\t".
-                //EN LA REGEX DEL FICHERO DE SNAP "snap2/email-Eu-core.txt", LA REGEX ES UN ESPACIO " ".
-                //REGEX: "\\s+" numero de espacios que sean
-                int nodoOrigen=Integer.parseInt(linea.split("\\s+")[0]);
-                nodos.add(nodoOrigen);
-                int nodoDestino=Integer.parseInt(linea.split("\\s+")[1]);
-                nodos.add(nodoDestino);
-                listaNodos.add(new Pair<>(nodoOrigen,nodoDestino)); //lista de pares de nodoOrigen y nodoDestino de cada arco.
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fr != null) {
+                        fr.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally {
-            try{
-                if(fr!=null){
-                    fr.close();
+        }else if(matCSV.matches()){
+            try {
+                archivo = new File(rutaFichero);
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    if (linea.indexOf("#") == 0) { //Ignoran las lineas que empiezan por "#"
+                        continue;
+                    }
+                    //EN LA REGEX DEL FICHERO DE PRUEBA CREADO POR MI, ES NECESARIO PONER "\t".
+                    //EN LA REGEX DEL FICHERO DE SNAP "snap2/email-Eu-core.txt", LA REGEX ES UN ESPACIO " ".
+                    //REGEX: "\\s+" numero de espacios que sean
+                    int nodoOrigen = Integer.parseInt(linea.split(",")[0]);
+                    nodos.add(nodoOrigen);
+                    int nodoDestino = Integer.parseInt(linea.split(",")[1]);
+                    nodos.add(nodoDestino);
+                    listaNodos.add(new Pair<>(nodoOrigen, nodoDestino)); //lista de pares de nodoOrigen y nodoDestino de cada arco.
                 }
-            }catch (Exception e2){
-                e2.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fr != null) {
+                        fr.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
         }
         this.numeroNodos=nodos.size();
@@ -60,7 +102,10 @@ public class Instance {
             throw new RuntimeException("Lista nodos vacia");
         }
         Grafo grafoND=new GrafoND(this.numeroNodos);
+        System.out.println(this.numeroNodos);
         for(Pair<Integer, Integer> parValores: listaNodos){
+            System.out.println("PAR VALORES INSERT NODO: "+parValores);
+            System.out.println(grafoND.nodos());
             if(!grafoND.nodos().contains(parValores.getKey())){
                 grafoND.insertarNodo(parValores.getKey());
             }
