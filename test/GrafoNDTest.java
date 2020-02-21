@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GrafoNDTest {
 
     Grafo crearGrafo() {
-        Grafo grafoND=new GrafoND(4);
+        Grafo grafoND=new GrafoND(4,5);
 
         grafoND.insertarNodo(1);
         grafoND.insertarNodo(2);

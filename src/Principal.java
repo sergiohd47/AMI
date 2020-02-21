@@ -31,8 +31,7 @@ public class Principal {
         //              INSTANCE
         long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_EMAILEU_1005);
-        System.out.println(listaNodos);
+        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_GOVERMENT_7057);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
         float probabilidadArcos=instance.getProbabilidadArcos();
@@ -54,13 +53,24 @@ public class Principal {
         //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
 
         //              SOLUTION
+        long inicioSolution=0;
+        long finalSolution=0;
+        int promedioInfeccion=0;
         Solution solution=new Solution(grafoND,conjuntoNodosSemilla,probabilidadArcos);
         for (int i=1;i<=NUMERO_SIMULACIONES;i++) {
+            System.out.println("------ SOLUCION "+i+" -------------");
             System.out.println("CONJUNTO SEMILLAS: "+conjuntoNodosSemilla);
+            inicioSolution=inicioSolution+System.currentTimeMillis();
             HashSet<Integer> conjuntoInfectados = solution.procedimientoCascada();
+            promedioInfeccion=promedioInfeccion+conjuntoInfectados.size();
+            finalSolution=finalSolution+System.currentTimeMillis();
             System.out.println("CONJUNTO INFECTADOS: "+conjuntoInfectados);
-
+            System.out.println("LONGITUD CONJ. INFECTADOS: "+conjuntoInfectados.size());
+            System.out.println("-----------------------------------");
         }
+        System.out.println("PROMEDIO INFECCION: "+promedioInfeccion/NUMERO_SIMULACIONES);
+        inicioSolution=inicioSolution/NUMERO_SIMULACIONES;
+        finalSolution=finalSolution/NUMERO_SIMULACIONES;
 
         //              IMPROVEMENTS
         long inicioImprovement=System.currentTimeMillis();
@@ -74,10 +84,10 @@ public class Principal {
 
         //              TIEMPOS
         double tiempoInstancia=(double)finalInstance-inicioInstance;
-        System.out.println("TIEMPO INSTANCIA: "+tiempoInstancia);
+        System.out.println("TIEMPO INSTANCIA: "+tiempoInstancia/1000);
 
         double tiempoConstructivo=(double)finalConstructivo-inicioConstructivo;
-        System.out.println("TIEMPO CONSTRUCTIVO: "+tiempoConstructivo);
+        System.out.println("TIEMPO CONSTRUCTIVO: "+tiempoConstructivo/1000);
 
         //double tiempoSolucion=randomImprovement.getTiempoSolucion();
         //System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
@@ -86,8 +96,11 @@ public class Principal {
         //double tiempoSolucion=betaImprovement.getTiempoSolucion();
        // System.out.println("TIEMPO SOLUCION: "+tiempoSolucion);
 
+        double tiempoSolution=(double)finalSolution-inicioSolution;
+        System.out.println("TIEMPO SOLUTION: "+tiempoSolution/1000);
+
         double tiempoMejoras=(double)finalImprovement-inicioImprovement;
-        System.out.println("TIEMPO MEJORAS: "+tiempoMejoras);
+        System.out.println("TIEMPO MEJORAS: "+tiempoMejoras/1000);
 
 
     }

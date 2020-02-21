@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,9 +16,11 @@ import java.util.regex.Pattern;
 public class Instance {
     private float probabilidadArcos;
     private int numeroNodos;
+    private int nodoMaximo;
     public Instance(){
         this.probabilidadArcos=(float)Math.random(); //numero aleatorio entre 0 y 1 (simula la probabilidad) (7 decimales)
         this.numeroNodos=0;
+
     }
 
     public ArrayList<Pair<Integer,Integer>> leerFichero(String rutaFichero){
@@ -95,17 +98,15 @@ public class Instance {
             }
         }
         this.numeroNodos=nodos.size();
+        this.nodoMaximo= Collections.max(nodos);
         return listaNodos;
     }
     public  Grafo construirGrafo(ArrayList<Pair<Integer, Integer>> listaNodos) throws RuntimeException{
         if(listaNodos.isEmpty()){
             throw new RuntimeException("Lista nodos vacia");
         }
-        Grafo grafoND=new GrafoND(this.numeroNodos);
-        System.out.println(this.numeroNodos);
+        Grafo grafoND=new GrafoND(this.numeroNodos,this.nodoMaximo);
         for(Pair<Integer, Integer> parValores: listaNodos){
-            System.out.println("PAR VALORES INSERT NODO: "+parValores);
-            System.out.println(grafoND.nodos());
             if(!grafoND.nodos().contains(parValores.getKey())){
                 grafoND.insertarNodo(parValores.getKey());
             }

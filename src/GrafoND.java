@@ -9,9 +9,9 @@ public class GrafoND implements Grafo{
     private boolean[][] matrizAdyacencia;
     private int numeroNodos;
 
-    public GrafoND(int numeroNodos){
+    public GrafoND(int numeroNodos, int nodoMaximo){
         this.numeroNodos=numeroNodos;
-        this.listaAdyacencia= new HashSet[this.numeroNodos+1]; //INICIALIZA LA LISTA ADYACENCIA AL NUMERO NODOS +1 (desechar la posicion 0)
+        this.listaAdyacencia= new HashSet[nodoMaximo+1]; //INICIALIZA LA LISTA ADYACENCIA AL NUMERO NODOS +1 (desechar la posicion 0)
         this.matrizAdyacencia= new boolean[this.listaAdyacencia.length][this.listaAdyacencia.length]; //INICIALIZA LA MATRIZ ADYACENCIA
         for(int i=0;i<this.listaAdyacencia.length;i++){
             this.matrizAdyacencia[0][i]= false;
