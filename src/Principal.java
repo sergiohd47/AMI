@@ -7,7 +7,9 @@ import java.util.*;
  */
 public class Principal {
     private static final int NODOS_SEMILLA=3; // EN ESTE CASO SE ESCOGEN TRES NODOS SEMILLAS
-    private static final int NUMERO_SIMULACIONES=30;
+    private static final int NUMERO_SIMULACIONES_SOLUTION=30;
+    private static final int NUMERO_SIMULACIONES_EXPERIMENTO=100;
+
     //              RUTAS SNAP
     //      FORMATO .TXT
     private static final String RUTA_COLLEGEMSG_1899="/Users/sergiohernandezdominguez/Desktop/universidad/TFG/SNAP/formatoTXT/snapCollegeMsg/CollegeMsg.txt";
@@ -29,6 +31,11 @@ public class Principal {
 
     public static void main(String args[]){
         //              INSTANCE
+        HashMap<Integer,ArrayList<HashSet<Integer>>> mapaPromedioConjunto=new HashMap<>();
+        int promedio=Integer.MIN_VALUE;
+        ArrayList<HashSet<Integer>> lista=new ArrayList<>();
+        mapaPromedioConjunto.put(promedio, lista);
+
         long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_GOVERMENT_7057);
@@ -37,41 +44,50 @@ public class Principal {
         float probabilidadArcos=instance.getProbabilidadArcos();
         long finalInstance=System.currentTimeMillis();
 
+        long inicioConstructivo=0;
+        long finalConstructivo=0;
         //              CONSTRUCTIVOS
-        long inicioConstructivo= System.currentTimeMillis();
-        RandomConstructive constructiveRandom=new RandomConstructive(NODOS_SEMILLA);
-        //GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
-        ClosenessConstructive constructiveCloseness=new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
-        //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
-        //HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
-        //HashSet<Integer> conjuntoNodosSemilla=normalConstructive.construirSolucion(grafoND);
-        HashSet<Integer> conjuntoNodosSemilla= constructiveRandom.construirSolucion(grafoND);
-        //HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
-        long finalConstructivo=System.currentTimeMillis();
+        for(int i=1;i<=NUMERO_SIMULACIONES_EXPERIMENTO;i++) {
+            inicioConstructivo = System.currentTimeMillis();
+            RandomConstructive constructiveRandom = new RandomConstructive(NODOS_SEMILLA);
+            //GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
+            //ClosenessConstructive constructiveCloseness = new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
+            //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
+            //HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
+            //HashSet<Integer> conjuntoNodosSemilla=normalConstructive.construirSolucion(grafoND);
+            HashSet<Integer> conjuntoNodosSemilla = constructiveRandom.construirSolucion(grafoND);
+            //HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
+            finalConstructivo = System.currentTimeMillis();
 
-        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= constructiveCloseness.getListaClosenessSemilla();
-        //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
+            //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= constructiveCloseness.getListaClosenessSemilla();
+            //ArrayList<Pair<Integer,Float>> listaClosenessSemilla= ((NormalClosenessConstructive) normalConstructive).getListaClosenessSemilla();
 
-        //              SOLUTION
-        long inicioSolution=0;
-        long finalSolution=0;
-        int promedioInfeccion=0;
-        Solution solution=new Solution(grafoND,conjuntoNodosSemilla,probabilidadArcos);
-        for (int i=1;i<=NUMERO_SIMULACIONES;i++) {
-            System.out.println("------ SOLUCION "+i+" -------------");
-            System.out.println("CONJUNTO SEMILLAS: "+conjuntoNodosSemilla);
-            inicioSolution=inicioSolution+System.currentTimeMillis();
-            HashSet<Integer> conjuntoInfectados = solution.procedimientoCascada();
-            promedioInfeccion=promedioInfeccion+conjuntoInfectados.size();
-            finalSolution=finalSolution+System.currentTimeMillis();
-            System.out.println("CONJUNTO INFECTADOS: "+conjuntoInfectados);
-            System.out.println("LONGITUD CONJ. INFECTADOS: "+conjuntoInfectados.size());
-            System.out.println("-----------------------------------");
+            //              SOLUTION
+            long inicioSolution = 0;
+            long finalSolution = 0;
+            int promedioInfeccion = 0;
+            Solution solution = new Solution(grafoND, conjuntoNodosSemilla, probabilidadArcos);
+            for (int j = 1; i <= NUMERO_SIMULACIONES_SOLUTION; i++) {
+                System.out.println("------ SOLUCION " + j + " -------------");
+                System.out.println("CONJUNTO SEMILLAS: " + conjuntoNodosSemilla);
+                inicioSolution = inicioSolution + System.currentTimeMillis();
+                HashSet<Integer> conjuntoInfectados = solution.procedimientoCascada();
+                promedioInfeccion = promedioInfeccion + conjuntoInfectados.size();
+                finalSolution = finalSolution + System.currentTimeMillis();
+                System.out.println("CONJUNTO INFECTADOS: " + conjuntoInfectados);
+                System.out.println("LONGITUD CONJ. INFECTADOS: " + conjuntoInfectados.size());
+                System.out.println("-----------------------------------");
+            }
+            System.out.println("PROMEDIO INFECCION: " + promedioInfeccion / NUMERO_SIMULACIONES_SOLUTION);
+            ArrayList<HashSet<Integer>> listaAux=mapaPromedioConjunto.get(promedioInfeccion);
+            if(listaAux==null){
+                listaAux=new ArrayList<>();
+                listaAux.add(conjuntoNodosSemilla);
+                mapaPromedioConjunto.put(promedioInfeccion,listaAux);
+            }else {
+                listaAux.add(conjuntoNodosSemilla);
+            }
         }
-        System.out.println("PROMEDIO INFECCION: "+promedioInfeccion/NUMERO_SIMULACIONES);
-        inicioSolution=inicioSolution/NUMERO_SIMULACIONES;
-        finalSolution=finalSolution/NUMERO_SIMULACIONES;
-
         //              IMPROVEMENTS
         long inicioImprovement=System.currentTimeMillis();
         //Improvement randomImprovement=new RandomImprovement();
