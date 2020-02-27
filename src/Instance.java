@@ -14,11 +14,10 @@ import java.util.regex.Pattern;
  */
 //Esta clase almacena en memoria la informacion de cada una de las instancias (ficheros) SNAP
 public class Instance {
-    private float probabilidadArcos;
+
     private int numeroNodos;
     private int nodoMaximo;
     public Instance(){
-        this.probabilidadArcos=(float)Math.random(); //numero aleatorio entre 0 y 1 (simula la probabilidad) (7 decimales)
         this.numeroNodos=0;
 
     }
@@ -118,7 +117,4 @@ public class Instance {
         return grafoND;
     }
 
-    public float getProbabilidadArcos() {
-        return probabilidadArcos;
-    }
 }
