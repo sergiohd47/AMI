@@ -22,23 +22,23 @@ public class RandomImprovement implements Improvement {
         while(true) {
             for(Integer nodoSalida: conjuntoNodosSemilla) {
                 for(Integer nodoEntrada: conjuntoNodosEntradaSemilla) {
-                    System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
-                    System.out.println("----------------------");
+                    //System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
+                    //System.out.println("----------------------");
                     HashSet<Integer> conjuntoNuevasSemillas= this.realizarIntercambios(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
-                    System.out.println("NODO SALE: "+nodoSalida);
-                    System.out.println("NODO ENTRA: "+nodoEntrada);
-                    System.out.println("----------------------");
-                    System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
-                    System.out.println("----------------------");
+                    //System.out.println("NODO SALE: "+nodoSalida);
+                    //System.out.println("NODO ENTRA: "+nodoEntrada);
+                    //System.out.println("----------------------");
+                    //System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
+                    //System.out.println("----------------------");
                     long inicioSolucion=System.currentTimeMillis();
                     for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
                         HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada();
                         mapaConjuntos.put(i, conjuntoInfectados);
-                        System.out.println("SOLUCION " + i);
-                        System.out.println("Conjunto semillas: "+conjuntoNuevasSemillas);
-                        System.out.println("Tamaño conj: " + conjuntoInfectados.size());
-                        System.out.println("Conjunto infectados: " + conjuntoInfectados);
-                        System.out.println("------------------");
+                        //System.out.println("SOLUCION " + i);
+                        //System.out.println("Conjunto semillas: "+conjuntoNuevasSemillas);
+                        //System.out.println("Tamaño conj: " + conjuntoInfectados.size());
+                        //System.out.println("Conjunto infectados: " + conjuntoInfectados);
+                        //System.out.println("------------------");
                     }
                     long finalSolucion = System.currentTimeMillis();
                     for (Integer clave : mapaConjuntos.keySet()) {
@@ -55,21 +55,21 @@ public class RandomImprovement implements Improvement {
                     }
 
                     mayorPromedio=Math.max(mayorPromedio,promedio);
-                    System.out.println("PROMEDIO INFECTADOS: " + promedio);
+                    /*System.out.println("PROMEDIO INFECTADOS: " + promedio);
                     System.out.println("--------------------------------------------------------------------");
                     System.out.println();
-                    System.out.println("--------------------------------------------------------------------");
+                    System.out.println("--------------------------------------------------------------------");*/
                     promedioLongitudInfectados=0;
                     this.tiempoSolucion=finalSolucion-inicioSolucion;
                 }
             }
-            System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
-            for (Map.Entry<Integer,ArrayList<HashSet<Integer>>> entrada: mapaPromedioConjSemilla.entrySet()){
+            //System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
+            /*for (Map.Entry<Integer,ArrayList<HashSet<Integer>>> entrada: mapaPromedioConjSemilla.entrySet()){
                 System.out.println(entrada);
-            }
-            System.out.println();
-            System.out.println("NUMERO DE CONJUNTOS DE INFECCION MAXIMA: "+mapaPromedioConjSemilla.get(mayorPromedio).size());
-            System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio)+ " -- PROMEDIO DE INFECCION: "+mayorPromedio);
+            }*/
+            //System.out.println();
+            //System.out.println("NUMERO DE CONJUNTOS DE INFECCION MAXIMA: "+mapaPromedioConjSemilla.get(mayorPromedio).size());
+            //System.out.println("CONJUNTOS INFECCION MAXIMA: " + mapaPromedioConjSemilla.get(mayorPromedio)+ " -- PROMEDIO DE INFECCION: "+mayorPromedio);
             break;
         }
     }
