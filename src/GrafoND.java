@@ -71,7 +71,7 @@ public class GrafoND implements Grafo{
     public int[] distanciaANodos(int nodo) {
         ArrayList<Integer> cola=new ArrayList<>();
         cola.add(nodo);
-        int[] distancias=new int[this.tamañoGrafo()+1];
+        int[] distancias=new int[this.listaAdyacencia.length];
         Arrays.fill(distancias,-1);
         distancias[nodo]=0;
         while(!cola.isEmpty()){
@@ -91,7 +91,9 @@ public class GrafoND implements Grafo{
             int valorDistancia=0;
             int[] distancias=this.distanciaANodos(nodo);
             for(int distanciaNodo: distancias){
-                valorDistancia=valorDistancia+distanciaNodo;
+                if(distanciaNodo!=-1) {
+                    valorDistancia = valorDistancia + distanciaNodo;
+                }
             }
             return (float)1/valorDistancia;
     }

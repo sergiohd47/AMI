@@ -65,6 +65,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GrafoNDTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AMI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GrafoNDTest.distanciaANodosTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="AMI" />
       <option name="PACKAGE_NAME" value="" />
@@ -95,23 +104,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GrafoNDTest.nodos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="AMI" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GrafoNDTest" />
-      <option name="METHOD_NAME" value="nodos" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.GrafoNDTest" />
         <item itemvalue="JUnit.GrafoNDTest.distanciaANodosTest" />
         <item itemvalue="JUnit.GrafoNDTest.distanciaEntreNodosTest" />
         <item itemvalue="JUnit.GrafoNDTest.gradoNodoTest" />
-        <item itemvalue="JUnit.GrafoNDTest.nodos" />
       </list>
     </recent_temporary>
   </component>
