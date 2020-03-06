@@ -61,6 +61,7 @@ public class Principal {
         //tiempoConstructivo=tiempoConstructivo+(double)(finalConstructivo-inicioConstructivo);
 
         //              CONSTRUCTIVOS
+        //          MEJOR COMBINACION: probabilidadArcos=RANDOM + RandomConstructive
         for(int i=1;i<=NUMERO_SIMULACIONES_EXPERIMENTO;i++) {
             System.out.println("------ SIMULACION " + i + " -------------");
             //float probabilidadArcos= (float) 0.25;
@@ -69,14 +70,14 @@ public class Principal {
             float probabilidadArcos=(float)Math.random(); //numero aleatorio entre 0 y 1 (simula la probabilidad) (7 decimales)
 
             inicioConstructivo = System.currentTimeMillis();
-            //RandomConstructive constructiveRandom = new RandomConstructive(NODOS_SEMILLA);
+            RandomConstructive constructiveRandom = new RandomConstructive(NODOS_SEMILLA);
             //GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
             //ClosenessConstructive constructiveCloseness = new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
-            NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
+            //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
             //HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);
             //HashSet<Integer> conjuntoNodosSemilla=constructiveGrade.construirSolucion(grafoND);
-            //HashSet<Integer> conjuntoNodosSemilla = constructiveRandom.construirSolucion(grafoND);
-            HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
+            HashSet<Integer> conjuntoNodosSemilla = constructiveRandom.construirSolucion(grafoND);
+            //HashSet<Integer> conjuntoNodosSemilla= normalConstructive.construirSolucion(grafoND); //CONJUNTO SEMILLA (en ultima fase: CONJUNTO NODOS CANDIDATOS A ENTRAR)
             finalConstructivo = System.currentTimeMillis();
             //System.out.println("CONJUNTO SEMILLA "+i+" : "+conjuntoNodosSemilla);
             tiempoConstructivo=tiempoConstructivo+(double)(finalConstructivo-inicioConstructivo);
