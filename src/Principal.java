@@ -31,11 +31,7 @@ public class Principal {
 
     public static void main(String args[]){
         //              INSTANCE
-        HashMap<Integer,ArrayList<HashSet<Integer>>> mapaPromedioConjunto=new HashMap<>();
-        int promedio=Integer.MIN_VALUE;
-        ArrayList<HashSet<Integer>> lista=new ArrayList<>();
-        mapaPromedioConjunto.put(promedio, lista);
-
+        int promedioMaximo=Integer.MIN_VALUE;
         //long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
         ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_BITCOINOTC_5881);
@@ -92,36 +88,27 @@ public class Principal {
                 inicioSolution = System.currentTimeMillis();
                 HashSet<Integer> conjuntoInfectados = solution.procedimientoCascada();
                 finalSolution = System.currentTimeMillis();
-                promedioInfeccion = promedioInfeccion + conjuntoInfectados.size();
+                //              IMPROVEMENTS
+                long inicioImprovement=System.currentTimeMillis();
+                Improvement randomImprovement=new RandomImprovement();
+                randomImprovement.improve(solution);
+                //Improvement closenessImprovement=new ClosenessImprovement();
+                //closenessImprovement.improve(solution);
+                //Improvement betaImprovement=new BetaImprovement();
+                //betaImprovement.improve(solution);
+                long finalImprovement=System.currentTimeMillis();
+                promedioInfeccion = promedioInfeccion + randomImprovement.getMayorPromedio();
                 //System.out.println("CONJUNTO INFECTADOS: " + conjuntoInfectados);
                 //System.out.println("LONGITUD CONJUNTOS INFECTADOS: " + conjuntoInfectados.size());
                 //System.out.println("-----------------------------------");
                 tiempoSolution=tiempoSolution+(double)(finalSolution-inicioSolution);
             }
             promedioInfeccion=promedioInfeccion/NUMERO_SIMULACIONES_SOLUTION;
+            promedioMaximo=Math.max(promedioMaximo,promedioInfeccion);
             System.out.println("PROMEDIO INFECCION: " + promedioInfeccion);
             System.out.println("-----------------------------------");
-            ArrayList<HashSet<Integer>> listaAux=mapaPromedioConjunto.get(promedioInfeccion);
-            if(listaAux==null){
-                listaAux=new ArrayList<>();
-                listaAux.add(conjuntoNodosSemilla);
-                mapaPromedioConjunto.put(promedioInfeccion,listaAux);
-            }else {
-                listaAux.add(conjuntoNodosSemilla);
-            }
         }
-        int promedioMaximo=Collections.max(mapaPromedioConjunto.keySet());
         System.out.println("PROMEDIO INFECCION MAXIMA: "+promedioMaximo);
-        System.out.println("LISTA SEMILLAS INFECCION MAXIMA: "+mapaPromedioConjunto.get(promedioMaximo));
-        //              IMPROVEMENTS
-        //long inicioImprovement=System.currentTimeMillis();
-        //Improvement randomImprovement=new RandomImprovement();
-        //randomImprovement.improve(solution);
-        //Improvement closenessImprovement=new ClosenessImprovement();
-        //closenessImprovement.improve(solution);
-        //Improvement betaImprovement=new BetaImprovement();
-        //betaImprovement.improve(solution);
-        //long finalImprovement=System.currentTimeMillis();
 
         //              TIEMPOS
         //double tiempoInstancia=(double)finalInstance-inicioInstance;
