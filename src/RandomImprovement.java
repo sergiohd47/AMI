@@ -6,8 +6,6 @@ import java.util.*;
 //IMPROVE DONDE SE REALIZAN CAMBIOS RANDOM SOBRE AMBOS CONJUNTOS (todos los cambios posibles)
 public class RandomImprovement implements Improvement {
     private static final int NUMERO_SIMULACIONES=30; //NUMERO SIMULACIONES QUE HACE EL ALGORITMO (debido al teoria central del limite, se elige 30)
-    private double tiempoSolucion;
-    private HashMap<Integer, ArrayList<HashSet<Integer>>> mapaPromedioConjSemilla=new HashMap<>();
     private int mayorPromedio=Integer.MIN_VALUE;
     @Override
     public void improve(Solution solucion) {
@@ -16,11 +14,12 @@ public class RandomImprovement implements Improvement {
         HashSet<Integer> conjuntoNodosEntradaSemilla = new HashSet<>(grafoND.nodos());
         conjuntoNodosEntradaSemilla.removeAll(conjuntoNodosSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
         int promedioLongitudInfectados = 0;
+        int indice=0;
         while(true) {
             for(Integer nodoSalida: conjuntoNodosSemilla) {
                 for(Integer nodoEntrada: conjuntoNodosEntradaSemilla) {
                     //System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
-                    //System.out.println("----------------------");
+                    System.out.println("---------- RANDOM IMPROVEMENT: "+indice+" ------------");
                     HashSet<Integer> conjuntoNuevasSemillas= this.realizarIntercambios(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
                     //System.out.println("NODO SALE: "+nodoSalida);
                     //System.out.println("NODO ENTRA: "+nodoEntrada);
@@ -47,6 +46,7 @@ public class RandomImprovement implements Improvement {
                     System.out.println("--------------------------------------------------------------------");*/
                     promedioLongitudInfectados=0;
                     //this.tiempoSolucion=finalSolucion-inicioSolucion;
+                    indice++;
                 }
             }
             //System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
@@ -63,7 +63,7 @@ public class RandomImprovement implements Improvement {
 
     @Override
     public int getMayorPromedio() {
-        return mayorPromedio;
+        return this.mayorPromedio;
     }
 
     /*@Override

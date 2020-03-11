@@ -34,7 +34,7 @@ public class Principal {
         int promedioMaximo=Integer.MIN_VALUE;
         //long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_BITCOINOTC_5881);
+        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FACEBOOKCOMB_4039);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
 
@@ -42,10 +42,13 @@ public class Principal {
 
         double tiempoConstructivo=0;
         double tiempoSolution=0;
+        double tiempoImprovement=0;
         long inicioConstructivo;
         long finalConstructivo;
         long inicioSolution;
         long finalSolution;
+        long inicioImprovement=0;
+        long finalImprovement=0;
 
         //inicioConstructivo = System.currentTimeMillis();
         //ClosenessConstructive constructiveCloseness = new ClosenessConstructive(NODOS_SEMILLA);
@@ -83,24 +86,27 @@ public class Principal {
             int promedioInfeccion = 0;
             Solution solution = new Solution(grafoND, conjuntoNodosSemilla, probabilidadArcos);
             for (int j = 1; j <= NUMERO_SIMULACIONES_SOLUTION; j++) {
-                //System.out.println("------ SOLUCION " + j + " -------------");
+                System.out.println("------ SOLUCION " + j + " -------------");
                 //System.out.println("CONJUNTO SEMILLAS: " + conjuntoNodosSemilla);
                 inicioSolution = System.currentTimeMillis();
                 HashSet<Integer> conjuntoInfectados = solution.procedimientoCascada();
                 finalSolution = System.currentTimeMillis();
                 //              IMPROVEMENTS
-                long inicioImprovement=System.currentTimeMillis();
-                Improvement randomImprovement=new RandomImprovement();
-                randomImprovement.improve(solution);
+                inicioImprovement=System.currentTimeMillis();
+                //Improvement randomImprovement=new RandomImprovement();
+                //randomImprovement.improve(solution);
                 //Improvement closenessImprovement=new ClosenessImprovement();
                 //closenessImprovement.improve(solution);
-                //Improvement betaImprovement=new BetaImprovement();
-                //betaImprovement.improve(solution);
-                long finalImprovement=System.currentTimeMillis();
-                promedioInfeccion = promedioInfeccion + randomImprovement.getMayorPromedio();
+                Improvement betaImprovement=new BetaImprovement();
+                betaImprovement.improve(solution);
+                finalImprovement=System.currentTimeMillis();
+                //promedioInfeccion = promedioInfeccion + randomImprovement.getMayorPromedio();
+                //promedioInfeccion = promedioInfeccion + closenessImprovement.getMayorPromedio();
+                promedioInfeccion = promedioInfeccion + betaImprovement.getMayorPromedio();
                 //System.out.println("CONJUNTO INFECTADOS: " + conjuntoInfectados);
                 //System.out.println("LONGITUD CONJUNTOS INFECTADOS: " + conjuntoInfectados.size());
                 //System.out.println("-----------------------------------");
+                tiempoImprovement=tiempoImprovement+(double)(finalImprovement-inicioImprovement);
                 tiempoSolution=tiempoSolution+(double)(finalSolution-inicioSolution);
             }
             promedioInfeccion=promedioInfeccion/NUMERO_SIMULACIONES_SOLUTION;
@@ -128,7 +134,7 @@ public class Principal {
         System.out.println("TIEMPO SOLUTION (seg): "+tiempoSolution/1000);
 
         //double tiempoMejoras=(double)finalImprovement-inicioImprovement;
-        //System.out.println("TIEMPO MEJORAS: "+tiempoMejoras/1000);
+        System.out.println("TIEMPO MEJORAS: "+tiempoImprovement/1000);
 
 
     }
