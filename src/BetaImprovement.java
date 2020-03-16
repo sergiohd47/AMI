@@ -29,7 +29,7 @@ public class BetaImprovement implements Improvement {
         ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
-        //Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS+
+        //Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
         HashSet<Integer> conjuntoSemillas=new HashSet<>();
         for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             conjuntoSemillas.add(parSemilla.getKey());
@@ -51,6 +51,8 @@ public class BetaImprovement implements Improvement {
         for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
             if(parEntrada.getValue()>numeroBeta){
                 nodosEntradaAcotados.add(parEntrada);
+            }else{
+                break;
             }
         }
         //System.out.println("NODOS ENTRADA ACOTADOS: "+nodosEntradaAcotados);
