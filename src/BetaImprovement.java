@@ -36,15 +36,15 @@ public class BetaImprovement implements Improvement {
         }
         float numeroBeta=(float)Math.random();
         System.out.println("NUMERO BETA: "+numeroBeta);
-        HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>();
+        HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>(listaClosenessSemilla);
         HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
         System.out.println("LISTA CLOSENESS SEMILLA: "+listaClosenessSemilla);
 
-        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+        /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             if(parSemilla.getValue()>numeroBeta){
                 semillasSalidaAcotadas.add(parSemilla);
             }
-        }
+        }*/
         System.out.println("LISTA NODOS ENTRADA SEMILLA: "+listaNodosEntradaSemilla);
         //System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
         for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
