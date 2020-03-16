@@ -81,8 +81,9 @@ public class BetaImprovement implements Improvement {
                     System.out.println("----------------------");
                      */
                     //long inicioSolucion=System.currentTimeMillis();
+                    Solution solucionAux=new Solution(grafoND,conjuntoNuevasSemillas,solucion.getProbabilidadArcos());
                     for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
-                        HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada();
+                        HashSet<Integer> conjuntoInfectados = solucionAux.procedimientoCascada();
                         promedioLongitudInfectados=promedioLongitudInfectados+conjuntoInfectados.size();
                         //mapaConjuntos.put(i, conjuntoInfectados);
                         /*System.out.println("SOLUCION " + i);
