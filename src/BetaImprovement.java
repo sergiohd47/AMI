@@ -29,7 +29,7 @@ public class BetaImprovement implements Improvement {
         ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
 
-        Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
+        //Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS+
         HashSet<Integer> conjuntoSemillas=new HashSet<>();
         for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             conjuntoSemillas.add(parSemilla.getKey());
@@ -45,6 +45,7 @@ public class BetaImprovement implements Improvement {
                 semillasSalidaAcotadas.add(parSemilla);
             }
         }*/
+        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness());
         System.out.println("LISTA NODOS ENTRADA SEMILLA: "+listaNodosEntradaSemilla);
         //System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
         for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
@@ -63,6 +64,7 @@ public class BetaImprovement implements Improvement {
         int indice=0;
         while(true) {
             for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
+                Integer nodoSalida=parSalida.getKey();
                 for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
                     System.out.println("---------- BETA IMPROVEMENT: "+indice+" ------------");
                     //System.out.println("CONJUNTO SEMILLA INICIAL: ");
@@ -71,7 +73,6 @@ public class BetaImprovement implements Improvement {
                     }
                     System.out.println("----------------------");
                      */
-                    Integer nodoSalida=parSalida.getKey();
                     Integer nodoEntrada=parEntrada.getKey();
                     HashSet<Integer> conjuntoNuevasSemillas = this.realizarIntercambios(nodoSalida, nodoEntrada, conjuntoSemillas);
                     /*System.out.println("NODO SALE: " + parSalida);

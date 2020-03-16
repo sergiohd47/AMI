@@ -12,7 +12,6 @@ public class ClosenessImprovement implements Improvement {
     @Override
     public void improve(Solution solucion) {
         Grafo grafoND=solucion.getGrafo();
-        ArrayList<Pair<Integer,Float>> listaNodosEntradaSemilla= new ArrayList<>();
         ArrayList<Pair<Integer, Float>> listaClosenessCompleta=new ArrayList<>();
         for(Integer nodo: grafoND.nodos()){
             listaClosenessCompleta.add(new Pair<>(nodo,grafoND.closenessCentrality(nodo)));
@@ -21,10 +20,10 @@ public class ClosenessImprovement implements Improvement {
         for(Integer nodoSemilla: solucion.getConjuntoNodoSemilla()){
             listaClosenessSemilla.add(new Pair<>(nodoSemilla,grafoND.closenessCentrality(nodoSemilla)));
         }
-        listaNodosEntradaSemilla.addAll(listaClosenessCompleta);
+        ArrayList<Pair<Integer, Float>> listaNodosEntradaSemilla = new ArrayList<>(listaClosenessCompleta);
         listaNodosEntradaSemilla.removeAll(listaClosenessSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
-
-        Collections.reverse(listaClosenessSemilla); //SE ORDENA DE MENOR A MAYOR EL CONJUNTO DE SEMILLAS
+        Collections.sort(listaClosenessSemilla,new ComparadorClosenessInverso()); //ORDENA DE MENOR A MAYOR
+        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness()); //ORDENA DE MAYOR A MENOR
         HashSet<Integer> conjuntoSemillas=new HashSet<>();
         for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             conjuntoSemillas.add(parSemilla.getKey());
@@ -33,13 +32,13 @@ public class ClosenessImprovement implements Improvement {
         int indice=0;
         while(true) {
             for (Pair<Integer,Float> parSalida : listaClosenessSemilla) {
+                Integer nodoSalida=parSalida.getKey();
                 for (Pair<Integer,Float> parEntrada : listaNodosEntradaSemilla) {
                     //System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
                         System.out.println(parSemilla);
                     }*/
                     System.out.println("---------- CLOSENESS IMPROVEMENT: "+indice+" ------------");
-                    Integer nodoSalida=parSalida.getKey();
                     Integer nodoEntrada=parEntrada.getKey();
                     HashSet<Integer> conjuntoNuevasSemillas = this.realizarIntercambios(nodoSalida, nodoEntrada, conjuntoSemillas);
                     /*
@@ -49,9 +48,10 @@ public class ClosenessImprovement implements Improvement {
                     System.out.println("CONJUNTO NUEVA SEMILLA: " + conjuntoNuevasSemillas);
                     System.out.println("----------------------");
                      */
-                    long inicioSolucion=System.currentTimeMillis();
+                    //long inicioSolucion=System.currentTimeMillis();
+                    Solution solucionAux=new Solution(grafoND,conjuntoNuevasSemillas,solucion.getProbabilidadArcos());
                     for (int i = 1; i < NUMERO_SIMULACIONES + 1; i++) {
-                        HashSet<Integer> conjuntoInfectados = solucion.procedimientoCascada();
+                        HashSet<Integer> conjuntoInfectados = solucionAux.procedimientoCascada();
                         promedioLongitudInfectados=promedioLongitudInfectados+conjuntoInfectados.size();
                         /*mapaConjuntos.put(i, conjuntoInfectados);
                         System.out.println("SOLUCION " + i);
@@ -108,8 +108,7 @@ public class ClosenessImprovement implements Improvement {
 
 
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {
-        HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
-        conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);
+        HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>(conjuntoNodosSemilla);
         conjuntoSemillaSolucion.remove(nodoCandidatoSalir);
         conjuntoSemillaSolucion.add(nodoCandidatoEntrar);
         return conjuntoSemillaSolucion;
