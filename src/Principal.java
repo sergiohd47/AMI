@@ -34,7 +34,7 @@ public class Principal {
         int promedioMaximo=Integer.MIN_VALUE;
         //long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FACEBOOKCOMB_4039);
+            ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_EMAILEU_1005);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
 

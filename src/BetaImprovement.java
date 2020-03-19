@@ -34,41 +34,37 @@ public class BetaImprovement implements Improvement {
         for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
             conjuntoSemillas.add(parSemilla.getKey());
         }
+        //REVISAR ESTA PARTE DEL CODIGO
         float numeroBeta=(float)Math.random();
-        System.out.println("NUMERO BETA: "+numeroBeta);
+        int numeroNodosEscoger=(int)(numeroBeta*grafoND.tamañoGrafo());
+        //System.out.println("NUMERO BETA: "+numeroBeta);
         HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>(listaClosenessSemilla);
         HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
-        System.out.println("LISTA CLOSENESS SEMILLA: "+listaClosenessSemilla);
+        //System.out.println("LISTA CLOSENESS SEMILLA: "+listaClosenessSemilla);
 
-        /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
-            if(parSemilla.getValue()>numeroBeta){
-                semillasSalidaAcotadas.add(parSemilla);
-            }
-        }*/
-        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness());
-        System.out.println("LISTA NODOS ENTRADA SEMILLA: "+listaNodosEntradaSemilla);
-        //System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
-        for(Pair<Integer,Float> parEntrada: listaNodosEntradaSemilla){
-            if(parEntrada.getValue()>numeroBeta){
-                nodosEntradaAcotados.add(parEntrada);
-            }else{
+        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
+            if(semillasSalidaAcotadas.size()==numeroNodosEscoger){
                 break;
             }
+            semillasSalidaAcotadas.add(parSemilla);
         }
-        //System.out.println("NODOS ENTRADA ACOTADOS: "+nodosEntradaAcotados);
-        if(semillasSalidaAcotadas.isEmpty()||nodosEntradaAcotados.isEmpty()) {
+        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness());
+        //System.out.println("LISTA NODOS ENTRADA SEMILLA: "+listaNodosEntradaSemilla);
+        //System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
+        //System.out.println("NUMERO NODOS ENTRADA ACOTADOS: "+nodosEntradaAcotados.size());
+        /*if(semillasSalidaAcotadas.isEmpty()||nodosEntradaAcotados.isEmpty()) {
             System.out.println("--------------------------------------------------------------------");
             System.out.println("EL NUMERO BETA CONDICIONA DEMASIADO LA ACOTACION DE LAS LISTAS");
             System.out.println("--------------------------------------------------------------------");
 
-        }
+        }*/
         int promedioLongitudInfectados = 0;
-        int indice=0;
+        //int indice=0;
         while(true) {
             for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
                 Integer nodoSalida=parSalida.getKey();
                 for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
-                    System.out.println("---------- BETA IMPROVEMENT: "+indice+" ------------");
+                    //System.out.println("---------- BETA IMPROVEMENT: "+indice+" ------------");
                     //System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
                         System.out.println(parSemilla);
@@ -113,13 +109,14 @@ public class BetaImprovement implements Improvement {
                     }
                     */
                     this.promedioMaximo = Math.max(this.promedioMaximo, promedio);
+                    System.out.println("MAYOR PROMEDIO: "+this.promedioMaximo);
                     /*System.out.println("PROMEDIO INFECTADOS: " + promedio);
                     System.out.println("--------------------------------------------------------------------");
                     System.out.println();
                     System.out.println("--------------------------------------------------------------------");+
                      */
                     promedioLongitudInfectados = 0;
-                    indice++;
+                    //indice++;
                     //this.tiempoSolution=finalSolucion-inicioSolucion;
                 }
             }
