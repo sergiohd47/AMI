@@ -41,14 +41,14 @@ public class BetaImprovement implements Improvement {
         HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>(listaClosenessSemilla);
         HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
         //System.out.println("LISTA CLOSENESS SEMILLA: "+listaClosenessSemilla);
-
-        for(Pair<Integer,Float> parSemilla: listaClosenessSemilla){
-            if(semillasSalidaAcotadas.size()==numeroNodosEscoger){
+        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness());
+        for(Pair<Integer,Float> parEntradaSemilla: listaNodosEntradaSemilla){
+            if(nodosEntradaAcotados.size()==numeroNodosEscoger){
                 break;
             }
-            semillasSalidaAcotadas.add(parSemilla);
+            nodosEntradaAcotados.add(parEntradaSemilla);
         }
-        Collections.sort(listaNodosEntradaSemilla,new ComparadorCloseness());
+
         //System.out.println("LISTA NODOS ENTRADA SEMILLA: "+listaNodosEntradaSemilla);
         //System.out.println("SEMILLAS ACOTADAS: "+semillasSalidaAcotadas);
         //System.out.println("NUMERO NODOS ENTRADA ACOTADOS: "+nodosEntradaAcotados.size());
@@ -140,8 +140,7 @@ public class BetaImprovement implements Improvement {
 
 
     private HashSet<Integer> realizarIntercambios(Integer nodoCandidatoSalir, Integer nodoCandidatoEntrar, HashSet<Integer> conjuntoNodosSemilla) {
-        HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>();
-        conjuntoSemillaSolucion.addAll(conjuntoNodosSemilla);
+        HashSet<Integer> conjuntoSemillaSolucion=new HashSet<>(conjuntoNodosSemilla);
         conjuntoSemillaSolucion.remove(nodoCandidatoSalir);
         conjuntoSemillaSolucion.add(nodoCandidatoEntrar);
         return conjuntoSemillaSolucion;
