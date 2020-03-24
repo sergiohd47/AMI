@@ -9,15 +9,18 @@ public class RandomImprovement implements Improvement {
     private int mayorPromedio=Integer.MIN_VALUE;
     @Override
     public void improve(Solution solucion) {
+        long inicioTiempoPre=System.currentTimeMillis();
         Grafo grafoND=solucion.getGrafo();
         HashSet<Integer> conjuntoNodosSemilla=solucion.getConjuntoNodoSemilla();
         HashSet<Integer> conjuntoNodosEntradaSemilla = new HashSet<>(grafoND.nodos());
         conjuntoNodosEntradaSemilla.removeAll(conjuntoNodosSemilla); //CONJUNTO NODOS CANDIDATOS A ENTRAR
         int promedioLongitudInfectados = 0;
         int indice=0;
+        long finalTiempoPre=System.currentTimeMillis();
         while(true) {
             for(Integer nodoSalida: conjuntoNodosSemilla) {
                 for(Integer nodoEntrada: conjuntoNodosEntradaSemilla) {
+                    long inicioInterior=System.currentTimeMillis();
                     //System.out.println("CONJUNTO SEMILLA INICIAL: "+conjuntoNodosSemilla);
                     System.out.println("---------- RANDOM IMPROVEMENT: "+indice+" ------------");
                     HashSet<Integer> conjuntoNuevasSemillas= this.realizarIntercambios(nodoSalida,nodoEntrada,conjuntoNodosSemilla);
@@ -47,7 +50,14 @@ public class RandomImprovement implements Improvement {
                     promedioLongitudInfectados=0;
                     //this.tiempoSolucion=finalSolucion-inicioSolucion;
                     indice++;
+                    long finalInterior=System.currentTimeMillis();
+                    double tiempoInterior=finalInterior-inicioInterior;
+                    System.out.println("TIEMPO INTERIOR: "+tiempoInterior/1000);
+                    break;
                 }
+                double tiempoPre=finalTiempoPre-inicioTiempoPre;
+                System.out.println("TIEMPO PRE: "+tiempoPre/1000);
+                break;
             }
             //System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
             /*for (Map.Entry<Integer,ArrayList<HashSet<Integer>>> entrada: mapaPromedioConjSemilla.entrySet()){

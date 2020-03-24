@@ -34,7 +34,7 @@ public class Principal {
         int promedioMaximo=Integer.MIN_VALUE;
         //long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
-            ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_EMAILEU_1005);
+            ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_FACEBOOKCOMB_4039);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
 
@@ -99,10 +99,10 @@ public class Principal {
                 //closenessImprovement.improve(solution);
                 Improvement betaImprovement=new BetaImprovement();
                 betaImprovement.improve(solution);
-                finalImprovement=System.currentTimeMillis();
+                //finalImprovement=System.currentTimeMillis();
                 //promedioInfeccion = promedioInfeccion + randomImprovement.getMayorPromedio();
                 //promedioInfeccion = promedioInfeccion + closenessImprovement.getMayorPromedio();
-                promedioInfeccion = promedioInfeccion + betaImprovement.getMayorPromedio();
+                //promedioInfeccion = promedioInfeccion + betaImprovement.getMayorPromedio();
                 //System.out.println("CONJUNTO INFECTADOS: " + conjuntoInfectados);
                 //System.out.println("LONGITUD CONJUNTOS INFECTADOS: " + conjuntoInfectados.size());
                 //System.out.println("-----------------------------------");

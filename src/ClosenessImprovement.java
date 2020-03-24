@@ -11,6 +11,7 @@ public class ClosenessImprovement implements Improvement {
     private int mayorPromedio=Integer.MIN_VALUE;
     @Override
     public void improve(Solution solucion) {
+        long inicioTiempoPre=System.currentTimeMillis();
         Grafo grafoND=solucion.getGrafo();
         ArrayList<Pair<Integer, Float>> listaClosenessCompleta=new ArrayList<>();
         for(Integer nodo: grafoND.nodos()){
@@ -30,15 +31,17 @@ public class ClosenessImprovement implements Improvement {
         }
         int promedioLongitudInfectados = 0;
         int indice=0;
+        long finalTiempoPre=System.currentTimeMillis();
         while(true) {
             for (Pair<Integer,Float> parSalida : listaClosenessSemilla) {
-                Integer nodoSalida=parSalida.getKey();
                 for (Pair<Integer,Float> parEntrada : listaNodosEntradaSemilla) {
+                    long inicioInterior=System.currentTimeMillis();
                     //System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
                         System.out.println(parSemilla);
                     }*/
                     System.out.println("---------- CLOSENESS IMPROVEMENT: "+indice+" ------------");
+                    Integer nodoSalida=parSalida.getKey();
                     Integer nodoEntrada=parEntrada.getKey();
                     HashSet<Integer> conjuntoNuevasSemillas = this.realizarIntercambios(nodoSalida, nodoEntrada, conjuntoSemillas);
                     /*
@@ -86,7 +89,14 @@ public class ClosenessImprovement implements Improvement {
                      */
                     promedioLongitudInfectados=0;
                     indice++;
+                    long finalInterior=System.currentTimeMillis();
+                    double tiempoInterior=finalInterior-inicioInterior;
+                    System.out.println("TIEMPO INTERIOR: "+tiempoInterior/1000);
+                    break;
                 }
+                double tiempoPre=finalTiempoPre-inicioTiempoPre;
+                System.out.println("TIEMPO PRE: "+tiempoPre/1000);
+                break;
             }
             /*System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
             for (Map.Entry<Integer, ArrayList<HashSet<Integer>>> entrada : mapaPromedioConjSemilla.entrySet()) {

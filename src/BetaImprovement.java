@@ -11,7 +11,8 @@ public class BetaImprovement implements Improvement {
     private int promedioMaximo=Integer.MIN_VALUE;
     @Override
     public void improve(Solution solucion) {
-        /*ashMap<Integer, HashSet<Integer>> mapaConjuntos=new HashMap<>();
+        long inicioTiempoPre=System.currentTimeMillis();
+        /*HashMap<Integer, HashSet<Integer>> mapaConjuntos=new HashMap<>();
         HashMap<Integer, ArrayList<HashSet<Integer>>> mapaPromedioConjSemilla=new HashMap<>();
         int mayorPromedio=Integer.MIN_VALUE;
         ArrayList<HashSet<Integer>> lista=new ArrayList<>();
@@ -36,8 +37,9 @@ public class BetaImprovement implements Improvement {
         }
         //REVISAR ESTA PARTE DEL CODIGO
         float numeroBeta=(float)Math.random();
+        System.out.println("NUMERO BETA: "+numeroBeta);
         int numeroNodosEscoger=(int)(numeroBeta*grafoND.tamañoGrafo());
-        //System.out.println("NUMERO BETA: "+numeroBeta);
+        System.out.println("NUMERO NODOS ESCOGIDOS: "+numeroNodosEscoger);
         HashSet<Pair<Integer,Float>> semillasSalidaAcotadas=new HashSet<>(listaClosenessSemilla);
         HashSet<Pair<Integer,Float>> nodosEntradaAcotados=new HashSet<>();
         //System.out.println("LISTA CLOSENESS SEMILLA: "+listaClosenessSemilla);
@@ -60,10 +62,11 @@ public class BetaImprovement implements Improvement {
         }*/
         int promedioLongitudInfectados = 0;
         //int indice=0;
+        long finalTiempoPre=System.currentTimeMillis();
         while(true) {
             for (Pair<Integer,Float> parSalida : semillasSalidaAcotadas) {
-                Integer nodoSalida=parSalida.getKey();
                 for (Pair<Integer,Float> parEntrada : nodosEntradaAcotados) {
+                    long inicioInterior=System.currentTimeMillis();
                     //System.out.println("---------- BETA IMPROVEMENT: "+indice+" ------------");
                     //System.out.println("CONJUNTO SEMILLA INICIAL: ");
                     /*for(Pair<Integer,Float> parSemilla: listaClosenessSemilla) {
@@ -71,6 +74,7 @@ public class BetaImprovement implements Improvement {
                     }
                     System.out.println("----------------------");
                      */
+                    Integer nodoSalida=parSalida.getKey();
                     Integer nodoEntrada=parEntrada.getKey();
                     HashSet<Integer> conjuntoNuevasSemillas = this.realizarIntercambios(nodoSalida, nodoEntrada, conjuntoSemillas);
                     /*System.out.println("NODO SALE: " + parSalida);
@@ -109,7 +113,7 @@ public class BetaImprovement implements Improvement {
                     }
                     */
                     this.promedioMaximo = Math.max(this.promedioMaximo, promedio);
-                    System.out.println("MAYOR PROMEDIO: "+this.promedioMaximo);
+                    //System.out.println("MAYOR PROMEDIO: "+this.promedioMaximo);
                     /*System.out.println("PROMEDIO INFECTADOS: " + promedio);
                     System.out.println("--------------------------------------------------------------------");
                     System.out.println();
@@ -118,7 +122,14 @@ public class BetaImprovement implements Improvement {
                     promedioLongitudInfectados = 0;
                     //indice++;
                     //this.tiempoSolution=finalSolucion-inicioSolucion;
+                    long finalInterior=System.currentTimeMillis();
+                    double tiempoInterior=finalInterior-inicioInterior;
+                    System.out.println("TIEMPO INTERIOR: "+tiempoInterior/1000);
+                    break;
                 }
+                double tiempoPre=finalTiempoPre-inicioTiempoPre;
+                System.out.println("TIEMPO PRE: "+tiempoPre/1000);
+                break;
             }
             /*System.out.println("TABLA PROMEDIO-CONJUNTOS SEMILLAS");
             for (Map.Entry<Integer, ArrayList<HashSet<Integer>>> entrada : mapaPromedioConjSemilla.entrySet()) {
