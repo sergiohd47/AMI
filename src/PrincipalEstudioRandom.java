@@ -1,14 +1,22 @@
+import javafx.css.Match;
+
+import java.math.BigInteger;
+
 /**
  * @author Sergio Hernandez Dominguez
  */
 public class PrincipalEstudioRandom {
 
     public static void main(String args[]){
+        //BigInteger numeroAux1=new BigInteger();
+        //numeroAux1= (BigInteger) Math.pow(30,50);
+        //long numeroAux2= (long) Math.pow(30,50);
+        //System.out.println(numeroAux1*numeroAux2);
         int intervalo0025=0;
         int intervalo025050=0;
         int intervalo050075=0;
         int intervalo0751=0;
-        for(int i=0;i<3000;i++){
+        for(long i=0;i<3000;i++){
             float numeroAleatorio=(float)Math.random();
             if(numeroAleatorio>0&&numeroAleatorio<0.25){
                 intervalo0025++;
@@ -34,5 +42,6 @@ public class PrincipalEstudioRandom {
         System.out.println("PROBABILIDAD 0.25-0.50: "+prob025050);
         System.out.println("PROBABILIDAD 0.50-0.75: "+prob050075);
         System.out.println("PROBABILIDAD 0.75-1: "+prob0751);
+
     }
 }
