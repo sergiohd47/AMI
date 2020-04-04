@@ -1,6 +1,7 @@
 import javafx.css.Match;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 /**
  * @author Sergio Hernandez Dominguez
@@ -8,10 +9,6 @@ import java.math.BigInteger;
 public class PrincipalEstudioRandom {
 
     public static void main(String args[]){
-        //BigInteger numeroAux1=new BigInteger();
-        //numeroAux1= (BigInteger) Math.pow(30,50);
-        //long numeroAux2= (long) Math.pow(30,50);
-        //System.out.println(numeroAux1*numeroAux2);
         int intervalo0025=0;
         int intervalo025050=0;
         int intervalo050075=0;

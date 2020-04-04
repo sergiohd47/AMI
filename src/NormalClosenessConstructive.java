@@ -64,6 +64,7 @@ public class NormalClosenessConstructive implements Constructive {
     }
 
 
+
     private ArrayList<Pair<Integer, Float>> construirListaCloseness(Grafo grafo) {
         ArrayList<Pair<Integer, Float>> listaNodosCC=new ArrayList<>();
         for(Integer nodo: grafo.nodos()){

@@ -10,10 +10,12 @@ public class Solution {
     private Grafo grafo;
     private HashSet<Integer> conjuntoNodoSemilla;
     private float probabilidadArcos;
+    private int nodosInfectadosPorSemilla;
     public Solution(Grafo grafo, HashSet<Integer> conjuntoNodoSemilla, float probabilidadArcos){
         this.grafo=grafo;
         this.conjuntoNodoSemilla=conjuntoNodoSemilla;
         this.probabilidadArcos=probabilidadArcos;
+        this.nodosInfectadosPorSemilla=0;
     }
 
     public HashSet<Integer> procedimientoCascada(){
@@ -24,6 +26,7 @@ public class Solution {
         HashSet<Integer> conjuntoNodosActivosUltimos=new HashSet<>();
         HashSet<Integer> conjuntoNodosVisitados=new HashSet<>();
         conjuntoNodosActivosUltimos.addAll(conjuntoNodosActivos);
+        int iteraccion=1;
         while(!terminado){
             conjuntoNodosFuturosInfec.clear();
             for(Integer nodo: conjuntoNodosActivosUltimos){
@@ -38,9 +41,13 @@ public class Solution {
                     }
                 }
             }
+            if(iteraccion==1) {
+                this.nodosInfectadosPorSemilla = conjuntoNodosFuturosInfec.size();
+            }
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
             terminado=conjuntoNodosFuturosInfec.isEmpty();
+            iteraccion++;
         }
         return conjuntoNodosActivos;
     }
@@ -52,5 +59,8 @@ public class Solution {
     }
     public float getProbabilidadArcos(){
         return this.probabilidadArcos;
+    }
+    public int getNodosInfectadosPorSemilla(){
+        return this.nodosInfectadosPorSemilla;
     }
 }
