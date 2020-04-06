@@ -41,7 +41,7 @@ public class Principal {
         int promedioInfeccionFuera=0;
         //long inicioInstance=System.currentTimeMillis();
         Instance instance=new Instance();
-        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_GNUTELLA9_8114);
+        ArrayList<Pair<Integer, Integer>> listaNodos=instance.leerFichero(RUTA_COLLEGEMSG_1899);
         Grafo grafoND=instance.construirGrafo(listaNodos);
         System.out.println("NUMERO NODOS GRAFO: "+grafoND.tamañoGrafo());
 
@@ -81,7 +81,7 @@ public class Principal {
 
             inicioConstructivo = System.currentTimeMillis();
             //RandomConstructive constructiveRandom = new RandomConstructive(NODOS_SEMILLA);
-            GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA_50); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
+            GradeConstructive constructiveGrade=new GradeConstructive(NODOS_SEMILLA_3); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR GRADO TIENEN
             //ClosenessConstructive constructiveCloseness = new ClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD TIENEN
             //NormalClosenessConstructive normalConstructive=new NormalClosenessConstructive(NODOS_SEMILLA); //CREA UN CONJUNTO CON LOS NODOS QUE MAYOR CENTRALIDAD NORMALIZADA TIENEN
             //HashSet<Integer> conjuntoNodosSemilla=constructiveCloseness.construirSolucion(grafoND);

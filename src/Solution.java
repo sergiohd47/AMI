@@ -41,11 +41,11 @@ public class Solution {
                     }
                 }
             }
-            if(iteraccion==1) {
-                this.nodosInfectadosPorSemilla = conjuntoNodosFuturosInfec.size();
-            }
             conjuntoNodosActivosUltimos.addAll(conjuntoNodosFuturosInfec);
             conjuntoNodosActivos.addAll(conjuntoNodosActivosUltimos);
+            if(iteraccion==1) {
+                this.nodosInfectadosPorSemilla = conjuntoNodosActivos.size();
+            }
             terminado=conjuntoNodosFuturosInfec.isEmpty();
             iteraccion++;
         }
